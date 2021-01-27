@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг»
 
 * Студент: [Kseniya Efremova](https://up.htmlacademy.ru/javascript/22/user/1469483).
-* Наставник: `Неизвестно`.
+* Наставник: [Евгений Баранков](https://htmlacademy.ru/profile/id518169).
 
 ---
 
