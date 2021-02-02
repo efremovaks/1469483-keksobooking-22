@@ -11,7 +11,7 @@ function random(min = 0, max = 10) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-random()
+random();
 
 
 function randomFloat(min = 0, max = 10) {
@@ -28,4 +28,4 @@ function randomFloat(min = 0, max = 10) {
   return rand.toFixed(1);
 }
 
-randomFloat()
+randomFloat();
