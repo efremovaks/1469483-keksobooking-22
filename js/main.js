@@ -12,7 +12,6 @@ function random(min, max) {
 }
 
 
-
 function randomFloat(min = 0, max = 10) {
 
   if (min < 0 || max < 0 || min > max) {
@@ -45,14 +44,31 @@ function getAvatar() {
 }
 
 
-function getAnything(arg) {
-  let i = random(0, arg.length - 1);
+function getAnything(array) {
+  let i = random(0, array.length - 1);
 
-  return arg[i];
+  return array[i];
 }
 
 
 function setOffer() {
+  let coordinates = {
+
+    x: randomFloat(35.65000, 35.70000),
+    y: randomFloat(139.70000, 139.80000),
+  }
+
+
+  function getArrayStrings(arr) {
+    let someArr = []
+    let lenArr = random(0, arr.length - 1);
+
+    for (let x = 0; x < lenArr + 1; x++) {
+      someArr.push(arr[x]);
+    }
+    return someArr;
+  }
+
 
   return {
     author: {
@@ -61,30 +77,31 @@ function setOffer() {
 
     offer: {
       title: getAnything(title),
-      address: randomFloat(35.65000, 35.70000) + ', ' + randomFloat(139.70000, 139.80000),
-      price: random(100, 10000), //getPrice()
+      address: coordinates.x + ', ' + coordinates.y,
+      price: random(100, 10000),
       type: getAnything(type),
       rooms: random(1, 10),
       guests: random(1, 30),
       checkin: getAnything(checkinCheckout),
       checkout: getAnything(checkinCheckout),
-      features: '',
+      features: getArrayStrings(features),
       description: getAnything(description),
-      photos: '',
+      photos: getArrayStrings(photos),
     },
 
     location: {
-      x: randomFloat(35.65000, 35.70000),
-      y: randomFloat(139.70000, 139.80000),
+      coordinates,
     },
   };
 }
 
 function createCollection() {
   let collection = [];
+
   for (let i = 0; i < 10; i++) {
     collection.push(setOffer());
   }
+
   return collection;
 }
 
