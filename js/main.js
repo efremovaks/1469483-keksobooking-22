@@ -49,13 +49,21 @@ function getRandomItem(array) {
 }
 
 
-function getArrayStrings(arr) {
-  const someArr = [];
-  const lenArr = random(0, arr.length - 1);
+// function getArrayStrings(arr) {
+//   const someArr = [];
+//   const lenArr = random(0, arr.length - 1);
 
-  for (let x = 0; x < lenArr + 1; x++) {
-    someArr.push(arr[x]);
-  }
+//   for (let x = 0; x < lenArr + 1; x++) {
+//     someArr.push(arr[x]);
+//   }
+//   return someArr;
+// }
+
+
+function getArrayStrings(arr) {
+
+  let lenArr = random(0, arr.length - 1) || 1;
+  let someArr = arr.slice(0, lenArr);
   return someArr;
 }
 
