@@ -62,8 +62,8 @@ function getRandomItem(array) {
 
 function getArrayStrings(arr) {
 
-  let lenArr = random(0, arr.length - 1) || 1;
-  let someArr = arr.slice(0, lenArr);
+  const lenArr = random(0, arr.length - 1) || 1;
+  const someArr = arr.slice(0, lenArr);
   return someArr;
 }
 
