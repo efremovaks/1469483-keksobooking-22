@@ -27,7 +27,6 @@ function randomFloat(min = 0, max = 10) {
 }
 
 
-
 const title = ['заголовок предложения-1', 'заголовок предложения-2', 'заголовок предложения-3'];
 const type = ['palace', 'flat', 'house', 'bungalow'];
 const checkinCheckout = ['12:00', '13:00', '14:00'];
@@ -36,23 +35,23 @@ const description = ['описание помещения-1', 'описание 
 const photos = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 
 
-
 function getAvatar() {
-  let index = random(1, 8);
+  const index = random(1, 8);
 
-  return 'img/avatars/user' + '0' + index + '.png';
+  return 'img/avatars/user0' + index + '.png';
 }
 
 
-function getAnything(array) {
-  let i = random(0, array.length - 1);
+function getRandomItem(array) {
+  const i = random(0, array.length - 1);
 
   return array[i];
 }
 
+
 function getArrayStrings(arr) {
-  let someArr = []
-  let lenArr = random(0, arr.length - 1);
+  const someArr = [];
+  const lenArr = random(0, arr.length - 1);
 
   for (let x = 0; x < lenArr + 1; x++) {
     someArr.push(arr[x]);
@@ -60,9 +59,9 @@ function getArrayStrings(arr) {
   return someArr;
 }
 
-function setOffer() {
-  let coordinates = {
 
+function setOffer() {
+  const coordinates = {
     x: randomFloat(35.65000, 35.70000),
     y: randomFloat(139.70000, 139.80000),
   }
@@ -71,30 +70,26 @@ function setOffer() {
     author: {
       avatar: getAvatar(),
     },
-
     offer: {
-      title: getAnything(title),
+      title: getRandomItem(title),
       address: coordinates.x + ', ' + coordinates.y,
       price: random(100, 10000),
-      type: getAnything(type),
+      type: getRandomItem(type),
       rooms: random(1, 10),
       guests: random(1, 30),
-      checkin: getAnything(checkinCheckout),
-      checkout: getAnything(checkinCheckout),
+      checkin: getRandomItem(checkinCheckout),
+      checkout: getRandomItem(checkinCheckout),
       features: getArrayStrings(features),
-      description: getAnything(description),
+      description: getRandomItem(description),
       photos: getArrayStrings(photos),
     },
-
-    location: {
-      x: coordinates.x,
-      y: coordinates.y,
-    },
+    location: coordinates,
   };
 }
 
+
 function createCollection() {
-  let collection = [];
+  const collection = [];
 
   for (let i = 0; i < 10; i++) {
     collection.push(setOffer());
@@ -103,6 +98,6 @@ function createCollection() {
   return collection;
 }
 
-createCollection()
+createCollection();
 
 // console.log(createCollection());
