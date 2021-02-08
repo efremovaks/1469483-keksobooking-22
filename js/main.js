@@ -50,6 +50,15 @@ function getAnything(array) {
   return array[i];
 }
 
+function getArrayStrings(arr) {
+  let someArr = []
+  let lenArr = random(0, arr.length - 1);
+
+  for (let x = 0; x < lenArr + 1; x++) {
+    someArr.push(arr[x]);
+  }
+  return someArr;
+}
 
 function setOffer() {
   let coordinates = {
@@ -57,18 +66,6 @@ function setOffer() {
     x: randomFloat(35.65000, 35.70000),
     y: randomFloat(139.70000, 139.80000),
   }
-
-
-  function getArrayStrings(arr) {
-    let someArr = []
-    let lenArr = random(0, arr.length - 1);
-
-    for (let x = 0; x < lenArr + 1; x++) {
-      someArr.push(arr[x]);
-    }
-    return someArr;
-  }
-
 
   return {
     author: {
@@ -90,7 +87,8 @@ function setOffer() {
     },
 
     location: {
-      coordinates,
+      x: coordinates.x,
+      y: coordinates.y,
     },
   };
 }
