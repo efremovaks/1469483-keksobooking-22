@@ -105,4 +105,6 @@ function createCollection() {
   return collection;
 }
 
-console.log(createCollection());
+createCollection()
+
+// console.log(createCollection());
