@@ -45,46 +45,12 @@ function getAvatar() {
 }
 
 
-function getTitle() {
-  let titleName = random(0, title.length - 1);
+function getAnything(arg) {
+  let i = random(0, arg.length - 1);
 
-  return title[titleName];
+  return arg[i];
 }
 
-
-// function getPrice() {
-//   let randomPrice = random(100, 10000);
-
-//   return randomPrice;
-// }
-
-
-function getType() {
-  let i = random(0, type.length - 1);
-
-  return type[i];
-}
-
-
-function getCheckin() {
-  let i = random(0, checkinCheckout.length - 1);
-
-  return checkinCheckout[i];
-}
-
-
-function getCheckout() {
-  let i = random(0, checkinCheckout.length - 1);
-
-  return checkinCheckout[i];
-}
-
-
-function getDescription() {
-  let i = random(0, description.length - 1);
-
-  return description[i];
-}
 
 function setOffer() {
 
@@ -94,16 +60,16 @@ function setOffer() {
     },
 
     offer: {
-      title: getTitle(),
+      title: getAnything(title),
       address: randomFloat(35.65000, 35.70000) + ', ' + randomFloat(139.70000, 139.80000),
       price: random(100, 10000), //getPrice()
-      type: getType(),
+      type: getAnything(type),
       rooms: random(1, 10),
       guests: random(1, 30),
-      checkin: getCheckin(),
-      checkout: getCheckout(),
+      checkin: getAnything(checkinCheckout),
+      checkout: getAnything(checkinCheckout),
       features: '',
-      description: getDescription(),
+      description: getAnything(description),
       photos: '',
     },
 
