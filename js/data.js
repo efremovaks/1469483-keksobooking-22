@@ -70,16 +70,4 @@ function setOffer() {
 }
 
 
-function createCollection() {
-  const collection = [];
-
-  for (let i = 0; i < 10; i++) {
-    collection.push(setOffer());
-  }
-
-  return collection;
-}
-
-createCollection();
-
-// console.log(createCollection());
+export{setOffer};
