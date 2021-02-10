@@ -1,9 +1,9 @@
-import {setOffer} from './data.js';
+import {setOffer} from './offer-data.js';
 
-function createCollection(arr) {
+function createCollection(number) {
   const collection = [];
 
-  for (let i = 0; i < arr; i++) {
+  for (let i = 0; i < number; i++) {
     collection.push(setOffer());
   }
 
@@ -11,4 +11,4 @@ function createCollection(arr) {
 }
 
 
-export{createCollection};
+export {createCollection};

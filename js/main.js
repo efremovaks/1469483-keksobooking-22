@@ -1,4 +1,4 @@
-import './data.js';
+import './offer-data.js';
 import {createCollection} from './create-collection.js';
 
 createCollection(10);

@@ -70,4 +70,4 @@ function setOffer() {
 }
 
 
-export{setOffer};
+export {setOffer};
