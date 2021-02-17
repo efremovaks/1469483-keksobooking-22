@@ -2,36 +2,41 @@
 import {createCollection} from './create-collection.js';
 
 const template = document.querySelector('#card').content.querySelector('.popup');
-const mapCanvas = document.querySelector('.map-canvas');
+const mapCanvas = document.querySelector('#map-canvas');
 
-function getCard(){
+
+function getCard() {
   const offerList = createCollection(1);
-  return offerList
+  return offerList[0];
 }
 
-console.log(getCard());
+function getfeatures(массив){
+  перебрать массив
+  что-то.document.createElement('li');
+  return список
 
-function card (offer) {
+}
+
+function card(data) {
   const cardTemplate = template.cloneNode(true);
 
-  const title = cardTemplate.querySelector('.popup__title').textContent = offer.title;
-  console.log('title', title);
+  cardTemplate.querySelector('.popup__title').textContent = data.offer.title;
+  cardTemplate.querySelector('.popup__text--address').textContent = data.offer.address;
+  cardTemplate.querySelector('.popup__text--price').textContent = data.offer.price + '₽/ночь';
+  cardTemplate.querySelector('.popup__type').textContent = data.offer.type; // словари
+  cardTemplate.querySelector('.popup__text--capacity').textContent = data.offer.rooms + ' комнат для ' + data.offer.guests + ' гостей';
+  cardTemplate.querySelector('.popup__text--time').textContent = 'Заезд после ' + data.offer.checkin + ' выезд до ' + data.offer.checkout;
 
-  const address = cardTemplate.querySelector('.popup__text--address').textContent = offer.address;
-  const price = cardTemplate.querySelector('.popup__text--price').textContent = offer.price + '₽/ночь';
-  const type = cardTemplate.querySelector('.popup__type').textContent = offer.type; // словари
-  const capacity = cardTemplate.querySelector('.popup__text--capacity').textContent = offer.rooms + ' комнаты для ' + offer.guests + ' гостей';
-  const time = cardTemplate.querySelector('.popup__text--time').textContent = 'Заезд после ' + offer.checkin + ' выезд до ' + offer.checkout;
-  const features = cardTemplate.querySelector('.popup__features').textContent = offer.features;
-  const description = cardTemplate.querySelector('.popup__description').textContent = offer.description;
-  const photos = cardTemplate.querySelector('.popup__photo').src = offer.photos;
-  const avatar = cardTemplate.querySelector('.popup__avatar').src = offer.avatar;
+  getfeatures.querySelector('.popup__features').textContent = data.offer.features;
+
+  cardTemplate.querySelector('.popup__description').textContent = data.offer.description;
+  cardTemplate.querySelector('.popup__photo').src = data.offer.photos;
+  cardTemplate.querySelector('.popup__avatar').src = data.author.avatar;
 
   return cardTemplate
 }
 
-console.log(card(getCard()));
-
-// mapCanvas.appendChild(card());
+mapCanvas.appendChild(card(getCard()));
 
 // export {card}
+
