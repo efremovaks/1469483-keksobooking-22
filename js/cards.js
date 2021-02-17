@@ -1,4 +1,3 @@
-// import {setOffer as offer} from './offer.js';
 import {createCollection} from './create-collection.js';
 
 const template = document.querySelector('#card').content.querySelector('.popup');
@@ -27,11 +26,19 @@ function getPhotos(container, photosList){
     const img = document.createElement('img');
     img.classList.add('popup__photo');
     img.src = element;
+    img.alt = 'Фотография жилья';
+    img.width = '45';
+    img.height = '40';
     container.appendChild(img);
   });
 }
 
-
+const typeOptions = {
+  flat: 'Квартира',
+  bungalow: 'Бунгало',
+  house: 'Дом',
+  palace: 'Дворец',
+}
 
 function card(data) {
   const cardTemplate = template.cloneNode(true);
@@ -39,14 +46,14 @@ function card(data) {
   cardTemplate.querySelector('.popup__title').textContent = data.offer.title;
   cardTemplate.querySelector('.popup__text--address').textContent = data.offer.address;
   cardTemplate.querySelector('.popup__text--price').textContent = data.offer.price + '₽/ночь';
-  cardTemplate.querySelector('.popup__type').textContent = data.offer.type; // словари
+
+  cardTemplate.querySelector('.popup__type').textContent = typeOptions[data.offer.type];
+
   cardTemplate.querySelector('.popup__text--capacity').textContent = data.offer.rooms + ' комнат для ' + data.offer.guests + ' гостей';
   cardTemplate.querySelector('.popup__text--time').textContent = 'Заезд после ' + data.offer.checkin + ' выезд до ' + data.offer.checkout;
   getFeatures(cardTemplate.querySelector('.popup__features'), data.offer.features);
   cardTemplate.querySelector('.popup__description').textContent = data.offer.description;
-
   getPhotos(cardTemplate.querySelector('.popup__photos'), data.offer.photos);
-
   cardTemplate.querySelector('.popup__avatar').src = data.author.avatar;
 
   return cardTemplate
@@ -55,4 +62,3 @@ function card(data) {
 mapCanvas.appendChild(card(getCard()));
 
 // export {card}
-
