@@ -10,12 +10,16 @@ function getCard() {
   return offerList[0];
 }
 
-function getfeatures(массив){
-  перебрать массив
-  что-то.document.createElement('li');
-  return список
+function getFeatures(container, featureList) {
+  container.innerHTML = '';
 
+  featureList.forEach(element => {
+    const li = document.createElement('li');
+    li.classList.add('popup__feature', 'popup__feature--' + element);
+    container.appendChild(li);
+  });
 }
+
 
 function card(data) {
   const cardTemplate = template.cloneNode(true);
@@ -27,7 +31,7 @@ function card(data) {
   cardTemplate.querySelector('.popup__text--capacity').textContent = data.offer.rooms + ' комнат для ' + data.offer.guests + ' гостей';
   cardTemplate.querySelector('.popup__text--time').textContent = 'Заезд после ' + data.offer.checkin + ' выезд до ' + data.offer.checkout;
 
-  getfeatures.querySelector('.popup__features').textContent = data.offer.features;
+  getFeatures(cardTemplate.querySelector('.popup__features'), data.offer.features);
 
   cardTemplate.querySelector('.popup__description').textContent = data.offer.description;
   cardTemplate.querySelector('.popup__photo').src = data.offer.photos;
