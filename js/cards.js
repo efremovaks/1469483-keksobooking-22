@@ -1,12 +1,22 @@
-import {setOffer as offer} from './offer.js';
+// import {setOffer as offer} from './offer.js';
+import {createCollection} from './create-collection.js';
 
 const template = document.querySelector('#card').content.querySelector('.popup');
 const mapCanvas = document.querySelector('.map-canvas');
 
-function card () {
+function getCard(){
+  const offerList = createCollection(1);
+  return offerList
+}
+
+console.log(getCard());
+
+function card (offer) {
   const cardTemplate = template.cloneNode(true);
 
   const title = cardTemplate.querySelector('.popup__title').textContent = offer.title;
+  console.log('title', title);
+
   const address = cardTemplate.querySelector('.popup__text--address').textContent = offer.address;
   const price = cardTemplate.querySelector('.popup__text--price').textContent = offer.price + '₽/ночь';
   const type = cardTemplate.querySelector('.popup__type').textContent = offer.type; // словари
@@ -20,4 +30,8 @@ function card () {
   return cardTemplate
 }
 
-console.log(card())
+console.log(card(getCard()));
+
+// mapCanvas.appendChild(card());
+
+// export {card}
