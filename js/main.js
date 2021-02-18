@@ -1,5 +1,4 @@
-import './offer-data.js';
-import {createCollection} from './create-collection.js';
-
-createCollection(10);
-// console.log(createCollection(10));
+import './offer.js';
+// import {createCollection} from './create-collection.js';
+import './create-collection.js';
+import './cards.js';

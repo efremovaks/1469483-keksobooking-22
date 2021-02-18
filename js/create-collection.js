@@ -1,4 +1,4 @@
-import {setOffer} from './offer-data.js';
+import {setOffer} from './offer.js';
 
 function createCollection(number) {
   const collection = [];
