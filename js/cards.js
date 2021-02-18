@@ -6,7 +6,7 @@ const typeOptions = {
   bungalow: 'Бунгало',
   house: 'Дом',
   palace: 'Дворец',
-}
+};
 
 const template = document.querySelector('#card').content.querySelector('.popup');
 const mapCanvas = document.querySelector('#map-canvas');
@@ -54,7 +54,7 @@ function getCard(data) {
   getPhotos(cardTemplate.querySelector('.popup__photos'), data.offer.photos);
   cardTemplate.querySelector('.popup__avatar').src = data.author.avatar;
 
-  return cardTemplate
+  return cardTemplate;
 }
 
 // собирает карточку, заполняются поля card() из данных offerList
