@@ -17,6 +17,7 @@ function setMinPrice() {
   priceFormInput.placeholder = typeMinPrice[typeForm.value]; // проставляет значение в поле Цена за ночь в зависимости от типа жилья
   priceFormInput.min = typeMinPrice[typeForm.value]; // ограничивает минимальное значение priceFormInput в соответствии с typeMinPrice
 }
+setMinPrice();
 
 typeForm.addEventListener('change', function () {
   setMinPrice();
