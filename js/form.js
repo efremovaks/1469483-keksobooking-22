@@ -14,28 +14,22 @@ const timeout = form.querySelector('#timeout');
 
 function setMinPrice() {
   //значения по умолчанию
-  priceFormInput.placeholder = typeMinPrice[typeForm.value];
-  priceFormInput.min = typeMinPrice[typeForm.value];
-
-  typeForm.addEventListener('change', function () {
-    priceFormInput.placeholder = typeMinPrice[typeForm.value]; // проставляет значение в поле Цена за ночь в зависимости от типа жилья
-    priceFormInput.min = typeMinPrice[typeForm.value]; // ограничивает минимальное значение priceFormInput в соответствии с typeMinPrice
-  });
+  priceFormInput.placeholder = typeMinPrice[typeForm.value]; // проставляет значение в поле Цена за ночь в зависимости от типа жилья
+  priceFormInput.min = typeMinPrice[typeForm.value]; // ограничивает минимальное значение priceFormInput в соответствии с typeMinPrice
 }
 
-setMinPrice();
+typeForm.addEventListener('change', function () {
+  setMinPrice();
+});
 
 
-function setTime() {
+// синхронизируем время въезда/выезда
+timein.value = timeout.value;
+
+timein.addEventListener('change', function () {
+  timeout.value = timein.value;
+});
+
+timeout.addEventListener('change', function () {
   timein.value = timeout.value;
-
-  timein.addEventListener('change', function () {
-    timeout.value = timein.value;
-  });
-
-  timeout.addEventListener('change', function () {
-    timein.value = timeout.value;
-  });
-}
-
-setTime();
+});
