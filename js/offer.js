@@ -55,7 +55,7 @@ function setOffer() {
     offer: {
       title: getRandomItem(title),
       address: coordinates.x + ', ' + coordinates.y,
-      price: random(100, 10000),
+      price: random(0, 1000000),
       type: getRandomItem(type),
       rooms: random(1, 10),
       guests: random(1, 30),
