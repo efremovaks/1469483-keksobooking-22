@@ -9,35 +9,6 @@ const mapCanvas = document.querySelector('#map-canvas');
 const adLable = createCollection(5);
 
 
-const description = function () {
-  for (let i = 0; i < adLable.length; i++) {
-    const lableName = adLable[i].offer.description;
-    return lableName;
-  }
-}
-
-
-
-const location = function () {
-  let lableAddress = [];
-  for (let i = 0; i < adLable.length; i++) {
-    lableAddress = adLable[i].location;
-  }
-  return lableAddress;
-}
-
-console.log(location())
-
-
-location.forEach(({lat = location.x, lng = location.y}) => {
-  const marker = L.marker({
-    lat,
-    lng,
-  });
-  marker.addTo(map);
-});
-
-
 const map = L.map(mapCanvas)
   // собитие НЕзагрузки карты
   .on('unload', function () {
@@ -50,7 +21,7 @@ const map = L.map(mapCanvas)
   .setView({
     lat: 35.681700,
     lng: 139.753882,
-  }, 11);
+  }, 8);
 
 // карта - изображение
 L.tileLayer(
@@ -76,10 +47,29 @@ const mainMarker = L.marker({
 });
 // выводит маркер на карту
 mainMarker.addTo(map);
+// mainMarker.remove(map);
 
 // возвращает координаты маркера в поле адрес
 mainMarker.on('moveend', function (evt) {
   const addressInput = document.querySelector('#address');
   addressInput.disabled = true;
   addressInput.value = evt.target.getLatLng();
+});
+
+// метки объектов объявлений
+const iconLable = L.icon({
+  iconUrl: './img/pin.svg',
+  iconSize: [40, 40],
+  iconAnchor: [20, 40],
+});
+
+adLable.forEach(({location}) => {
+  const marker = L.marker({
+    lat: location.x,
+    lng: location.y,
+  },
+  {
+    icon: iconLable,
+  });
+  marker.addTo(map);
 });
