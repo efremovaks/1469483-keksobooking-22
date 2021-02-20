@@ -1,14 +1,45 @@
 /* global L:readonly */
-import {createCollection} from './create-collection.js';
+import {
+  createCollection
+} from './create-collection.js';
 
 const form = document.querySelector('.ad-form');
 const mapFilters = document.querySelector('.map__filters');
 const mapCanvas = document.querySelector('#map-canvas');
+const adLable = createCollection(5);
 
+
+const description = function () {
+  for (let i = 0; i < adLable.length; i++) {
+    const lableName = adLable[i].offer.description;
+    return lableName;
+  }
+}
+
+
+
+const location = function () {
+  let lableAddress = [];
+  for (let i = 0; i < adLable.length; i++) {
+    lableAddress = adLable[i].location;
+  }
+  return lableAddress;
+}
+
+console.log(location())
+
+
+location.forEach(({lat = location.x, lng = location.y}) => {
+  const marker = L.marker({
+    lat,
+    lng,
+  });
+  marker.addTo(map);
+});
 
 
 const map = L.map(mapCanvas)
-// собитие НЕзагрузки карты
+  // собитие НЕзагрузки карты
   .on('unload', function () {
     form.classList.add('ad-form--disabled');
     form.disabled = true;
@@ -29,30 +60,26 @@ L.tileLayer(
 ).addTo(map);
 
 // кастомный маркер
-const mainMarkerIco = L.icon ({
+const mainMarkerIco = L.icon({
   iconUrl: './img/main-pin.svg',
   iconSize: [50, 50],
   iconAnchor: [25, 50],
 });
 
 // добавляеет маркер по координатам
-const mainMarker = L.marker (
-  {
-    lat: 35.681700,
-    lng: 139.753882,
-  },
-  {
-    draggable: true,
-    icon: mainMarkerIco,
-  },
-);
+const mainMarker = L.marker({
+  lat: 35.681700,
+  lng: 139.753882,
+}, {
+  draggable: true,
+  icon: mainMarkerIco,
+});
 // выводит маркер на карту
 mainMarker.addTo(map);
 
 // возвращает координаты маркера в поле адрес
-mainMarker.on('moveend', function(evt) {
+mainMarker.on('moveend', function (evt) {
   const addressInput = document.querySelector('#address');
   addressInput.disabled = true;
-  addressInput.value = evt.target.getLatLng()
+  addressInput.value = evt.target.getLatLng();
 });
-
