@@ -1,12 +1,12 @@
 /* global L:readonly */
-import {
-  createCollection
-} from './create-collection.js';
+import {createCollection} from './create-collection.js';
+import {renderCard} from './cards.js';
 
 const form = document.querySelector('.ad-form');
 const mapFilters = document.querySelector('.map__filters');
 const mapCanvas = document.querySelector('#map-canvas');
 const adLable = createCollection(5);
+const cardTemplate = document.querySelector('#card');
 
 
 const map = L.map(mapCanvas)
@@ -72,4 +72,5 @@ adLable.forEach(({location}) => {
     icon: iconLable,
   });
   marker.addTo(map);
+  marker.bindPopup(renderCard(cardTemplate, 1));
 });

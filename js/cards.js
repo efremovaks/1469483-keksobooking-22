@@ -65,4 +65,6 @@ function renderCard(container, index) {
   container.appendChild(fragment);
 }
 
-renderCard(mapCanvas, 1);
+// renderCard(mapCanvas, 1);
+
+export {renderCard};
