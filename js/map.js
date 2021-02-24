@@ -6,7 +6,6 @@ const form = document.querySelector('.ad-form');
 const mapFilters = document.querySelector('.map__filters');
 const mapCanvas = document.querySelector('#map-canvas');
 const adLable = createCollection(5);
-const cardTemplate = document.querySelector('#card');
 
 
 const map = L.map(mapCanvas)
