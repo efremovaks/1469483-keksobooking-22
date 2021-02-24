@@ -1,6 +1,6 @@
 /* global L:readonly */
 import {createCollection} from './create-collection.js';
-import {renderCard} from './cards.js';
+import {getCard} from './cards.js';
 
 const form = document.querySelector('.ad-form');
 const mapFilters = document.querySelector('.map__filters');
@@ -63,14 +63,14 @@ const iconLable = L.icon({
   iconAnchor: [20, 40],
 });
 
-adLable.forEach(({location}) => {
+adLable.forEach((item) => {
   const marker = L.marker({
-    lat: location.x,
-    lng: location.y,
+    lat: item.location.x,
+    lng: item.location.y,
   },
   {
     icon: iconLable,
   });
   marker.addTo(map);
-  marker.bindPopup(renderCard(cardTemplate, 1));
+  marker.bindPopup(getCard(item));
 });

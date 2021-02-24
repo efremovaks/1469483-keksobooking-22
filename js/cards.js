@@ -67,4 +67,4 @@ function renderCard(container, index) {
 
 // renderCard(mapCanvas, 1);
 
-export {renderCard};
+export {getCard};
