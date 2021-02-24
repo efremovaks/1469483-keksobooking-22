@@ -51,8 +51,11 @@ mainMarker.addTo(map);
 // возвращает координаты маркера в поле адрес
 mainMarker.on('moveend', function (evt) {
   const addressInput = document.querySelector('#address');
+
+
   addressInput.disabled = true;
-  addressInput.value = evt.target.getLatLng();
+  const coords = evt.target.getLatLng();
+  addressInput.value = coords.lat.toFixed(5) + ', ' + coords.lng.toFixed(5);
 });
 
 // метки объектов объявлений
@@ -66,6 +69,7 @@ adLable.forEach((item) => {
 
   const newDiv = document.createElement('div');
   newDiv.classList.add('map__card');
+  newDiv.appendChild(getCard(item));
 
   const marker = L.marker({
     lat: item.location.x,
@@ -74,6 +78,8 @@ adLable.forEach((item) => {
   {
     icon: iconLable,
   });
+
   marker.addTo(map);
-  marker.bindPopup(newDiv.appendChild(getCard(item)));
+  marker.bindPopup(newDiv);
+
 });
