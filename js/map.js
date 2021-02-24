@@ -63,6 +63,10 @@ const iconLable = L.icon({
 });
 
 adLable.forEach((item) => {
+
+  const newDiv = document.createElement('div');
+  newDiv.classList.add('map__card');
+
   const marker = L.marker({
     lat: item.location.x,
     lng: item.location.y,
@@ -71,5 +75,5 @@ adLable.forEach((item) => {
     icon: iconLable,
   });
   marker.addTo(map);
-  marker.bindPopup(getCard(item));
+  marker.bindPopup(newDiv.appendChild(getCard(item)));
 });
