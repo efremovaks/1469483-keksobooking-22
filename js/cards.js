@@ -39,9 +39,9 @@ function getPhotos(container, photosList) {
   });
 }
 
-function checkValue(field, value, method = 'textContent') {
+function checkValue(field, value, propName = 'textContent') {
   if (value) {
-    field[method] = value;
+    field[propName] = value;
   } else {
     field.style.display = 'none';
   }
