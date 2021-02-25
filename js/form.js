@@ -10,12 +10,48 @@ const priceFormInput = form.querySelector('#price');
 const typeForm = form.querySelector('#type');
 const timein = form.querySelector('#timein');
 const timeout = form.querySelector('#timeout');
+const title = form.querySelector('#title');
+const price = form.querySelector('#price');
+const MAX_PRICE_VALUE = 1000000;
 
+
+title.addEventListener('invalid', function () {
+  if (title.validity.tooShort) {
+    title.setCustomValidity('Имя должно состоять минимум из 30 символов');
+  } else if (title.validity.tooLong) {
+    title.setCustomValidity('Имя не должно превышать 100 символов');
+  } else if (title.validity.valueMissing) {
+    title.setCustomValidity('Обязательное поле');
+  } else {
+    title.setCustomValidity('');
+  }
+});
+
+price.addEventListener('input', function () {
+  const priceLength = price.value.length;
+
+  if (priceLength > MAX_PRICE_VALUE) {
+    price.setCustomValidity('Цена не должна превышать 1 000 000');
+  } else {
+    price.setCustomValidity('');
+  }
+
+  price.reportValidity();
+
+
+  // if (price.validity.tooLong) {
+  //   price.setCustomValidity('Цена не должна превышать 1 000 000');
+  // } else if (price.validity.valueMissing) {
+  //   price.setCustomValidity('Обязательное поле');
+  // } else {
+  //   price.setCustomValidity('');
+  // }
+});
 
 function setMinPrice() {
   //значения по умолчанию
   priceFormInput.placeholder = typeMinPrice[typeForm.value]; // проставляет значение в поле Цена за ночь в зависимости от типа жилья
-  priceFormInput.min = typeMinPrice[typeForm.value]; // ограничивает минимальное значение priceFormInput в соответствии с typeMinPrice
+  // priceFormInput.min = typeMinPrice[typeForm.value]; // ограничивает минимальное значение priceFormInput в соответствии с typeMinPrice
 }
 
 setMinPrice();
