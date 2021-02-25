@@ -39,7 +39,7 @@ function getPhotos(container, photosList) {
   });
 }
 
-function checkValue (field, value, method = 'textContent') {
+function checkValue(field, value, method = 'textContent') {
   if (value) {
     field[method] = value;
   } else {
@@ -55,8 +55,19 @@ function getCard(data) {
   checkValue(cardTemplate.querySelector('.popup__text--address'), data.offer.address);
   checkValue(cardTemplate.querySelector('.popup__text--price'), data.offer.price + '₽/ночь');
   checkValue(cardTemplate.querySelector('.popup__type'), typeOptions[data.offer.type]);
-  checkValue(cardTemplate.querySelector('.popup__text--capacity'), data.offer.rooms + ' комнат для ' + data.offer.guests + ' гостей');
-  checkValue(cardTemplate.querySelector('.popup__text--time'),'Заезд после ' + data.offer.checkin + ' выезд до ' + data.offer.checkout);
+
+  let capacity = '';
+  if (data.offer.rooms && data.offer.guests) {
+    capacity = data.offer.rooms + ' комнат для ' + data.offer.guests + ' гостей';
+  }
+  checkValue(cardTemplate.querySelector('.popup__text--capacity'), capacity);
+
+  let time = '';
+  if (data.offer.checkin && data.offer.checkout) {
+    time = 'Заезд после ' +  data.offer.checkin + ' выезд до ' + data.offer.checkout;
+  }
+  checkValue(cardTemplate.querySelector('.popup__text--time'), time);
+
   getFeatures(cardTemplate.querySelector('.popup__features'), data.offer.features);
   checkValue(cardTemplate.querySelector('.popup__description'), data.offer.description);
   getPhotos(cardTemplate.querySelector('.popup__photos'), data.offer.photos);
@@ -75,4 +86,6 @@ function getCard(data) {
 
 // renderCard(mapCanvas, 1);
 
-export {getCard};
+export {
+  getCard
+};
