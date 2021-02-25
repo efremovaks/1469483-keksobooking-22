@@ -1,11 +1,11 @@
 import {random, randomFloat} from './util.js';
 
 
-const title = ['заголовок предложения-1', 'заголовок предложения-2', 'заголовок предложения-3'];
+const title = ['заголовок предложения-1', 'заголовок предложения-2', 'заголовок предложения-3', ''];
 const type = ['palace', 'flat', 'house', 'bungalow'];
 const checkinCheckout = ['12:00', '13:00', '14:00'];
 const features = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-const description = ['описание помещения-1', 'описание помещения-2', 'описание помещения-3'];
+const description = ['описание помещения-1', 'описание помещения-2', 'описание помещения-3', ''];
 const photos = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg', 'http://o0.github.io/assets/images/tokyo/hotel2.jpg', 'http://o0.github.io/assets/images/tokyo/hotel3.jpg'];
 
 
