@@ -5,6 +5,8 @@ const typeMinPrice = {
   palace: 10000,
 };
 
+const MAX_PRICE_VALUE = 1000000;
+
 const form = document.querySelector('.ad-form');
 const priceFormInput = form.querySelector('#price');
 const typeForm = form.querySelector('#type');
@@ -12,7 +14,7 @@ const timein = form.querySelector('#timein');
 const timeout = form.querySelector('#timeout');
 const title = form.querySelector('#title');
 const price = form.querySelector('#price');
-const MAX_PRICE_VALUE = 1000000;
+
 
 
 title.addEventListener('invalid', function () {
@@ -37,15 +39,6 @@ price.addEventListener('input', function () {
   }
 
   price.reportValidity();
-
-
-  // if (price.validity.tooLong) {
-  //   price.setCustomValidity('Цена не должна превышать 1 000 000');
-  // } else if (price.validity.valueMissing) {
-  //   price.setCustomValidity('Обязательное поле');
-  // } else {
-  //   price.setCustomValidity('');
-  // }
 });
 
 function setMinPrice() {
