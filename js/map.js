@@ -2,10 +2,17 @@
 import {createCollection} from './create-collection.js';
 import {getCard} from './cards.js';
 
+
+const mapCenterCoords = {
+  lat: 35.68170,
+  lng: 139.75388,
+}
+
 const form = document.querySelector('.ad-form');
 const mapFilters = document.querySelector('.map__filters');
 const mapCanvas = document.querySelector('#map-canvas');
 const adLable = createCollection(5);
+const addressInput = document.querySelector('#address');
 
 
 const map = L.map(mapCanvas)
@@ -18,8 +25,8 @@ const map = L.map(mapCanvas)
   })
   // координаты центровки карты и зум
   .setView({
-    lat: 35.681700,
-    lng: 139.753882,
+    lat: mapCenterCoords.lat,
+    lng: mapCenterCoords.lng,
   }, 8);
 
 // карта - изображение
@@ -38,8 +45,8 @@ const mainMarkerIco = L.icon({
 
 // добавляеет маркер по координатам
 const mainMarker = L.marker({
-  lat: 35.681700,
-  lng: 139.753882,
+  lat: mapCenterCoords.lat,
+  lng: mapCenterCoords.lng,
 }, {
   draggable: true,
   icon: mainMarkerIco,
@@ -49,11 +56,9 @@ mainMarker.addTo(map);
 // mainMarker.remove(map);
 
 // возвращает координаты маркера в поле адрес
+addressInput.value = mapCenterCoords.lat + ', ' + mapCenterCoords.lng;
+
 mainMarker.on('moveend', function (evt) {
-  const addressInput = document.querySelector('#address');
-
-
-  addressInput.disabled = true;
   const coords = evt.target.getLatLng();
   addressInput.value = coords.lat.toFixed(5) + ', ' + coords.lng.toFixed(5);
 });
