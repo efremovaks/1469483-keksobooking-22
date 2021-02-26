@@ -31,19 +31,31 @@ title.addEventListener('invalid', function () {
   }
 });
 
+
 price.addEventListener('input', function () {
   const priceValue = price.value.length;
 
   if (priceValue > MAX_PRICE_VALUE) {
-    price.setCustomValidity('Цена не должна превышать 1 000 000');
-  } else if (priceValue < 0) {
-    price.setCustomValidity('Цена не должна быть отрицательной');
-  }
-  else {
-    price.setCustomValidity('');
+    price.setCustomValidity('Цена не должна превышать 1 000 000');
+    return;
   }
 
-  price.reportValidity();
+  if (priceValue < 0) {
+    price.setCustomValidity('Цена не должна быть отрицательной');
+    return;
+  }
+
+
+
+  // if (priceValue > MAX_PRICE_VALUE) {
+  //   price.setCustomValidity('Цена не должна превышать 1 000 000');
+  // } else if (priceValue < 0) {
+  //   price.setCustomValidity('Цена не должна быть отрицательной');
+  // }
+  // else {
+  //   price.setCustomValidity('');
+  // }
+
 });
 
 function setMinPrice() {
