@@ -44,18 +44,6 @@ price.addEventListener('input', function () {
     price.setCustomValidity('Цена не должна быть отрицательной');
     return;
   }
-
-
-
-  // if (priceValue > MAX_PRICE_VALUE) {
-  //   price.setCustomValidity('Цена не должна превышать 1 000 000');
-  // } else if (priceValue < 0) {
-  //   price.setCustomValidity('Цена не должна быть отрицательной');
-  // }
-  // else {
-  //   price.setCustomValidity('');
-  // }
-
 });
 
 function setMinPrice() {

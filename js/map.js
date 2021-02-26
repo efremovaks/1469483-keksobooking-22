@@ -6,6 +6,7 @@ const form = document.querySelector('.ad-form');
 const mapFilters = document.querySelector('.map__filters');
 const mapCanvas = document.querySelector('#map-canvas');
 const adLable = createCollection(5);
+const addressInput = document.querySelector('#address');
 
 
 const map = L.map(mapCanvas)
@@ -48,12 +49,12 @@ const mainMarker = L.marker({
 mainMarker.addTo(map);
 // mainMarker.remove(map);
 
+mainMarker._latlng.lat
+
 // возвращает координаты маркера в поле адрес
+addressInput.value = mainMarker._latlng.lat + ', ' + mainMarker._latlng.lng;
+
 mainMarker.on('moveend', function (evt) {
-  const addressInput = document.querySelector('#address');
-
-
-  addressInput.disabled = true;
   const coords = evt.target.getLatLng();
   addressInput.value = coords.lat.toFixed(5) + ', ' + coords.lng.toFixed(5);
 });
