@@ -32,11 +32,14 @@ title.addEventListener('invalid', function () {
 });
 
 price.addEventListener('input', function () {
-  const priceLength = price.value.length;
+  const priceValue = price.value.length;
 
-  if (priceLength > MAX_PRICE_VALUE) {
+  if (priceValue > MAX_PRICE_VALUE) {
     price.setCustomValidity('Цена не должна превышать 1 000 000');
-  } else {
+  } else if (priceValue < 0) {
+    price.setCustomValidity('Цена не должна быть отрицательной');
+  }
+  else {
     price.setCustomValidity('');
   }
 
