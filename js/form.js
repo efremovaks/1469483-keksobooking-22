@@ -14,6 +14,8 @@ const timein = form.querySelector('#timein');
 const timeout = form.querySelector('#timeout');
 const title = form.querySelector('#title');
 const price = form.querySelector('#price');
+const roomNumber = form.querySelector('#room_number');
+const capacity = form.querySelector('#capacity');
 
 
 
@@ -63,4 +65,23 @@ timein.addEventListener('change', function () {
 
 timeout.addEventListener('change', function () {
   timein.value = timeout.value;
+});
+
+// синхронизирует комнаты и гостей
+roomNumber.value = capacity.value;
+
+roomNumber.addEventListener('change', function () {
+  if (roomNumber.value != 100) {
+    capacity.value = roomNumber.value;
+  } else {
+    capacity.value = 0;
+  }
+});
+
+capacity.addEventListener('change', function () {
+  if (capacity.value != 0) {
+    roomNumber.value = capacity.value;
+  } else {
+    roomNumber.value = 100;
+  }
 });
