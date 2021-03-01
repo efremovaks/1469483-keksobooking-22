@@ -86,6 +86,4 @@ function getCard(data) {
 
 // renderCard(mapCanvas, 1);
 
-export {
-  getCard
-};
+export {getCard};
