@@ -1,6 +1,7 @@
 /* global L:readonly */
-import {createCollection} from './create-collection.js';
+// import {createCollection} from './create-collection.js';
 import {getCard} from './cards.js';
+
 
 
 const mapCenterCoords = {
@@ -11,7 +12,7 @@ const mapCenterCoords = {
 const form = document.querySelector('.ad-form');
 const mapFilters = document.querySelector('.map__filters');
 const mapCanvas = document.querySelector('#map-canvas');
-const adLable = createCollection(5);
+// const adLable = createCollection(5);
 const addressInput = document.querySelector('#address');
 
 
@@ -70,21 +71,30 @@ const iconLable = L.icon({
   iconAnchor: [20, 40],
 });
 
-adLable.forEach((item) => {
+function qwerty (data) {
 
-  const newDiv = document.createElement('div');
-  newDiv.classList.add('map__card');
-  newDiv.appendChild(getCard(item));
+  data.forEach((item) => {
+    // console.log(item.offer.title)
 
-  const marker = L.marker({
-    lat: item.location.x,
-    lng: item.location.y,
-  },
-  {
-    icon: iconLable,
+    const newDiv = document.createElement('div');
+    newDiv.classList.add('map__card');
+    newDiv.appendChild(getCard(item));
+
+    console.log(newDiv)
+
+    const marker = L.marker({
+      lat: item.location.lat,
+      lng: item.location.lat,
+    }, {
+      icon: iconLable,
+    });
+
+    marker.addTo(map);
+    marker.bindPopup(newDiv);
+
   });
+}
 
-  marker.addTo(map);
-  marker.bindPopup(newDiv);
 
-});
+
+export{qwerty}
