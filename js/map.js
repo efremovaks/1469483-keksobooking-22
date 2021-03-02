@@ -28,7 +28,7 @@ const map = L.map(mapCanvas)
   .setView({
     lat: mapCenterCoords.lat,
     lng: mapCenterCoords.lng,
-  }, 8);
+  }, 9);
 
 // карта - изображение
 L.tileLayer(
@@ -74,17 +74,14 @@ const iconLable = L.icon({
 function qwerty (data) {
 
   data.forEach((item) => {
-    // console.log(item.offer.title)
 
     const newDiv = document.createElement('div');
     newDiv.classList.add('map__card');
     newDiv.appendChild(getCard(item));
 
-    console.log(newDiv)
-
     const marker = L.marker({
       lat: item.location.lat,
-      lng: item.location.lat,
+      lng: item.location.lng,
     }, {
       icon: iconLable,
     });
@@ -93,6 +90,7 @@ function qwerty (data) {
     marker.bindPopup(newDiv);
 
   });
+
 }
 
 

@@ -4,4 +4,6 @@
 // import './cards.js';
 import './form.js';
 import './map.js';
-import './server.js';
+import {getData} from './server.js';
+
+getData()

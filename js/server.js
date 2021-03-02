@@ -4,8 +4,19 @@ function getData() {
   fetch('https://22.javascript.pages.academy/keksobooking/data')
     .then((response) => response.json())
     .then((data) => {
-      console.log(qwerty(data));
+      return qwerty(data);
     })
 }
-getData()
-export {getData};
+
+
+function toSend(data) {
+  fetch(
+    'https://22.javascript.pages.academy/keksobooking',
+    {
+      method: 'POST',
+      body: data,
+    },
+  );
+}
+
+export {getData, toSend};

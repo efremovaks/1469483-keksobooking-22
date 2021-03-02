@@ -1,3 +1,5 @@
+import {toSend} from './server.js';
+
 const typeMinPrice = {
   bungalow: 0,
   flat: 1000,
@@ -17,6 +19,14 @@ const price = form.querySelector('#price');
 const roomNumber = form.querySelector('#room_number');
 const capacity = form.querySelector('#capacity');
 
+
+form.addEventListener('submit', function (evt){
+  evt.preventDefault();
+
+  const formData = new FormData(evt.target);
+  toSend(formData);
+
+});
 
 
 title.addEventListener('invalid', function () {
