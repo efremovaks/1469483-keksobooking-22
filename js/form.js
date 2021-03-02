@@ -20,11 +20,30 @@ const roomNumber = form.querySelector('#room_number');
 const capacity = form.querySelector('#capacity');
 
 
+function onSuccess () {
+  const successTemplate = document.querySelector('#success').content.querySelector('.success');
+  const mainHtml = document.querySelector('main');
+  const successMessage = successTemplate.cloneNode(true);
+  mainHtml.appendChild(successMessage);
+
+  mainHtml.addEventListener('keydown', function(evt) {
+    if (evt.keyCode === 27) {
+      mainHtml.removeChild(successMessage);
+    }
+
+    title.innerHTML = '';
+    price.innerHTML = '';
+  });
+
+}
+
+
 form.addEventListener('submit', function (evt){
   evt.preventDefault();
 
   const formData = new FormData(evt.target);
   toSend(formData);
+  onSuccess()
 
 });
 
