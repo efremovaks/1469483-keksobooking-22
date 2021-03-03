@@ -1,5 +1,3 @@
-// import {createCollection} from './create-collection.js';
-
 // словарь типов жилья
 const typeOptions = {
   flat: 'Квартира',
@@ -9,8 +7,6 @@ const typeOptions = {
 };
 
 const template = document.querySelector('#card').content.querySelector('.popup');
-// const mapCanvas = document.querySelector('#map-canvas');
-// const offerList = createCollection(10);
 
 
 // создает и добавляет в разметку элементы списка приемуществ
@@ -75,15 +71,5 @@ function getCard(data) {
 
   return cardTemplate;
 }
-
-// собирает карточку, заполняются поля card() из данных offerList
-// function renderCard(container, index) {
-//   const fragment = document.createDocumentFragment();
-//   const сard = getCard(offerList[index]);
-//   fragment.appendChild(сard);
-//   container.appendChild(fragment);
-// }
-
-// renderCard(mapCanvas, 1);
 
 export {getCard};

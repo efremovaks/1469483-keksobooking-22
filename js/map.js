@@ -1,10 +1,6 @@
 /* global L:readonly */
-// import {createCollection} from './create-collection.js';
-import {
-  getCard
-} from './cards.js';
 
-
+import {getCard} from './cards.js';
 
 const mapCenterCoords = {
   lat: 35.80222,
@@ -14,7 +10,6 @@ const mapCenterCoords = {
 const form = document.querySelector('.ad-form');
 const mapFilters = document.querySelector('.map__filters');
 const mapCanvas = document.querySelector('#map-canvas');
-// const adLable = createCollection(5);
 const addressInput = document.querySelector('#address');
 
 
@@ -26,6 +21,7 @@ const map = L.map(mapCanvas)
     mapFilters.classList.add('map__filters--disabled');
     mapFilters.disabled = true;
   })
+
   // координаты центровки карты и зум
   .setView({
     lat: mapCenterCoords.lat,
@@ -72,6 +68,7 @@ mainMarkerPosition(mainMarker);
 function addressCoords() {
   addressInput.value = mapCenterCoords.lat + ', ' + mapCenterCoords.lng;
 }
+
 addressCoords();
 
 // метки объектов объявлений
@@ -81,6 +78,7 @@ const iconLable = L.icon({
   iconAnchor: [20, 40],
 });
 
+// размещает маркеры предложений на карту
 function renderToMap(data) {
 
   data.forEach((item) => {
@@ -100,10 +98,7 @@ function renderToMap(data) {
     marker.bindPopup(newDiv);
 
   });
-
 }
-
-
 
 export {
   renderToMap,
