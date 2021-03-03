@@ -59,7 +59,6 @@ form.addEventListener('submit', function (evt) {
 
   const formData = new FormData(evt.target);
   toSend(formData);
-  toDefaultForm();
 });
 
 
@@ -154,4 +153,4 @@ function capacityRoom() {
 
 capacityRoom();
 
-export {onFailed, onSuccess};
+export {onFailed, onSuccess, toDefaultForm};

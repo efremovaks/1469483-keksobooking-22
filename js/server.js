@@ -10,6 +10,7 @@ import {
 import {
   onSuccess
 } from './form.js';
+import {toDefaultForm} from './form.js';
 
 
 function getData() {
@@ -26,14 +27,15 @@ function getData() {
 
 function toSend(data) {
   fetch(
-      'https://22.javascript.pages.academy/keksobooking', {
-        method: 'POST',
-        body: data,
-      },
-    )
+    'https://22.javascript.pages.academy/keksobooking', {
+      method: 'POST',
+      body: data,
+    },
+  )
     .then((response) => {
       if (response.ok) {
         onSuccess();
+        toDefaultForm();
       } else {
         onFailed();
       }
