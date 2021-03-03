@@ -59,9 +59,9 @@ form.addEventListener('submit', function (evt) {
 
   const formData = new FormData(evt.target);
   toSend(formData);
-  onSuccess();
   toDefaultForm();
 });
+
 
 function onFailed() {
   const failedTemplate = document.querySelector('#error').content.querySelector('.error');
@@ -154,4 +154,4 @@ function capacityRoom() {
 
 capacityRoom();
 
-export {onFailed};
+export {onFailed, onSuccess};

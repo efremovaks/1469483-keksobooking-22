@@ -7,6 +7,10 @@ import {
 import {
   onFailed
 } from './form.js';
+import {
+  onSuccess
+} from './form.js';
+
 
 function getData() {
   fetch('https://22.javascript.pages.academy/keksobooking/data')
@@ -22,16 +26,21 @@ function getData() {
 
 function toSend(data) {
   fetch(
-      'https://22.javascript.pages.academy/keksobooking',
-      {
+      'https://22.javascript.pages.academy/keksobooking', {
         method: 'POST',
         body: data,
       },
     )
-    .then((response) => response.data())
+    .then((response) => {
+      if (response.ok) {
+        onSuccess();
+      } else {
+        onFailed();
+      }
+    })
     .catch(() => {
       onFailed();
-    })
+    });
 }
 
 export {
