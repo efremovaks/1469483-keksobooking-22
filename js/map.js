@@ -1,12 +1,14 @@
 /* global L:readonly */
 // import {createCollection} from './create-collection.js';
-import {getCard} from './cards.js';
+import {
+  getCard
+} from './cards.js';
 
 
 
 const mapCenterCoords = {
-  lat: 35.68170,
-  lng: 139.75388,
+  lat: 35.80222,
+  lng: 139.78935,
 }
 
 const form = document.querySelector('.ad-form');
@@ -52,17 +54,25 @@ const mainMarker = L.marker({
   draggable: true,
   icon: mainMarkerIco,
 });
-// выводит маркер на карту
-mainMarker.addTo(map);
-// mainMarker.remove(map);
+
+function mainMarkerPosition(marker) {
+  // выводит маркер на карту
+  marker.addTo(map);
+  // mainMarker.remove(map);
+
+  marker.on('moveend', function (evt) {
+    const coords = evt.target.getLatLng();
+    addressInput.value = coords.lat.toFixed(5) + ', ' + coords.lng.toFixed(5);
+  });
+}
+
+mainMarkerPosition(mainMarker);
 
 // возвращает координаты маркера в поле адрес
-addressInput.value = mapCenterCoords.lat + ', ' + mapCenterCoords.lng;
-
-mainMarker.on('moveend', function (evt) {
-  const coords = evt.target.getLatLng();
-  addressInput.value = coords.lat.toFixed(5) + ', ' + coords.lng.toFixed(5);
-});
+function addressCoords() {
+  addressInput.value = mapCenterCoords.lat + ', ' + mapCenterCoords.lng;
+}
+addressCoords();
 
 // метки объектов объявлений
 const iconLable = L.icon({
@@ -71,7 +81,7 @@ const iconLable = L.icon({
   iconAnchor: [20, 40],
 });
 
-function qwerty (data) {
+function renderToMap(data) {
 
   data.forEach((item) => {
 
@@ -95,4 +105,9 @@ function qwerty (data) {
 
 
 
-export{qwerty}
+export {
+  renderToMap,
+  mainMarker,
+  mapCenterCoords,
+  addressCoords
+}

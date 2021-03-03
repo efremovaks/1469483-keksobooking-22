@@ -1,10 +1,10 @@
-import { qwerty } from './map.js';
+import {renderToMap} from './map.js';
 
 function getData() {
   fetch('https://22.javascript.pages.academy/keksobooking/data')
     .then((response) => response.json())
     .then((data) => {
-      return qwerty(data);
+      return renderToMap(data);
     })
 }
 

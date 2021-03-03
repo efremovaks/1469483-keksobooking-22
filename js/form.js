@@ -1,4 +1,7 @@
 import {toSend} from './server.js';
+import {mapCenterCoords} from './map.js';
+import {mainMarker} from './map.js';
+import {addressCoords} from './map.js';
 
 const typeMinPrice = {
   bungalow: 0,
@@ -20,30 +23,39 @@ const roomNumber = form.querySelector('#room_number');
 const capacity = form.querySelector('#capacity');
 
 
-function onSuccess () {
+function toDefaultForm() {
+  form.reset();
+  mainMarker.setLatLng(mapCenterCoords);
+  addressCoords();
+  setMinPrice();
+  capacityRoom();
+}
+
+function onSuccess() {
   const successTemplate = document.querySelector('#success').content.querySelector('.success');
   const mainHtml = document.querySelector('main');
   const successMessage = successTemplate.cloneNode(true);
   mainHtml.appendChild(successMessage);
 
-  mainHtml.addEventListener('keydown', function(evt) {
-    if (evt.keyCode === 27) {
-      mainHtml.removeChild(successMessage);
+  document.addEventListener('keydown', function (evt) {
+    if (evt.key === 'Escape') {
+      successMessage.remove();
     }
-
-    title.innerHTML = '';
-    price.innerHTML = '';
   });
 
+  document.addEventListener('click', function () {
+    successMessage.remove();
+  });
 }
 
 
-form.addEventListener('submit', function (evt){
+form.addEventListener('submit', function (evt) {
   evt.preventDefault();
 
   const formData = new FormData(evt.target);
   toSend(formData);
-  onSuccess()
+  onSuccess();
+  toDefaultForm();
 
 });
 
@@ -100,20 +112,24 @@ timeout.addEventListener('change', function () {
 });
 
 // синхронизирует комнаты и гостей
-roomNumber.value = capacity.value;
+function capacityRoom() {
+  roomNumber.value = capacity.value;
 
-roomNumber.addEventListener('change', function () {
-  if (roomNumber.value != 100) {
-    capacity.value = roomNumber.value;
-  } else {
-    capacity.value = 0;
-  }
-});
+  roomNumber.addEventListener('change', function () {
+    if (roomNumber.value != 100) {
+      capacity.value = roomNumber.value;
+    } else {
+      capacity.value = 0;
+    }
+  });
 
-capacity.addEventListener('change', function () {
-  if (capacity.value != 0) {
-    roomNumber.value = capacity.value;
-  } else {
-    roomNumber.value = 100;
-  }
-});
+  capacity.addEventListener('change', function () {
+    if (capacity.value != 0) {
+      roomNumber.value = capacity.value;
+    } else {
+      roomNumber.value = 100;
+    }
+  });
+}
+
+capacityRoom();
