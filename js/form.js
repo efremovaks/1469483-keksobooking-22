@@ -21,6 +21,7 @@ const title = form.querySelector('#title');
 const price = form.querySelector('#price');
 const roomNumber = form.querySelector('#room_number');
 const capacity = form.querySelector('#capacity');
+const btnFormReset = form.querySelector('.ad-form__reset');
 
 
 function toDefaultForm() {
@@ -48,6 +49,10 @@ function onSuccess() {
   });
 }
 
+btnFormReset.addEventListener('click', function (evt) {
+  evt.preventDefault();
+  toDefaultForm();
+});
 
 form.addEventListener('submit', function (evt) {
   evt.preventDefault();
@@ -56,9 +61,24 @@ form.addEventListener('submit', function (evt) {
   toSend(formData);
   onSuccess();
   toDefaultForm();
-
 });
 
+function onFailed() {
+  const failedTemplate = document.querySelector('#error').content.querySelector('.error');
+  const mainHtml = document.querySelector('main');
+  const failedMessage = failedTemplate.cloneNode(true);
+  mainHtml.appendChild(failedMessage);
+
+  document.addEventListener('keydown', function (evt) {
+    if (evt.key === 'Escape') {
+      failedMessage.remove();
+    }
+  });
+
+  document.addEventListener('click', function () {
+    failedMessage.remove();
+  });
+}
 
 title.addEventListener('invalid', function () {
   if (title.validity.tooShort) {
@@ -133,3 +153,5 @@ function capacityRoom() {
 }
 
 capacityRoom();
+
+export {onFailed};

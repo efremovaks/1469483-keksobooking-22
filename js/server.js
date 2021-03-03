@@ -1,5 +1,12 @@
-import {renderToMap} from './map.js';
-import {showAlert} from './util.js';
+import {
+  renderToMap
+} from './map.js';
+import {
+  showAlert
+} from './util.js';
+import {
+  onFailed
+} from './form.js';
 
 function getData() {
   fetch('https://22.javascript.pages.academy/keksobooking/data')
@@ -15,12 +22,19 @@ function getData() {
 
 function toSend(data) {
   fetch(
-    'https://22.javascript.pages.academy/keksobooking',
-    {
-      method: 'POST',
-      body: data,
-    },
-  );
+      'https://22.javascript.pages.academy/keksobooking',
+      {
+        method: 'POST',
+        body: data,
+      },
+    )
+    .then((response) => response.data())
+    .catch(() => {
+      onFailed();
+    })
 }
 
-export {getData, toSend};
+export {
+  getData,
+  toSend
+};
