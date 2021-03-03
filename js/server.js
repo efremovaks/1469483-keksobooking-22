@@ -1,4 +1,5 @@
 import {renderToMap} from './map.js';
+import {showAlert} from './util.js';
 
 function getData() {
   fetch('https://22.javascript.pages.academy/keksobooking/data')
@@ -6,6 +7,9 @@ function getData() {
     .then((data) => {
       return renderToMap(data);
     })
+    .catch(() => {
+      showAlert('При загрузке данных с сервера произошла ошибка. Попробуйте ещё раз');
+    });
 }
 
 
