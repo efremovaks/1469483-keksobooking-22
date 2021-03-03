@@ -23,7 +23,7 @@ const roomNumber = form.querySelector('#room_number');
 const capacity = form.querySelector('#capacity');
 const btnFormReset = form.querySelector('.ad-form__reset');
 
-
+// очищает форму
 function toDefaultForm() {
   form.reset();
   mainMarker.setLatLng(mapCenterCoords);
@@ -32,6 +32,7 @@ function toDefaultForm() {
   capacityRoom();
 }
 
+// сообщение про успешную отправку
 function onSuccess() {
   const successTemplate = document.querySelector('#success').content.querySelector('.success');
   const mainHtml = document.querySelector('main');
@@ -49,11 +50,13 @@ function onSuccess() {
   });
 }
 
+// сброс формы по кнопке сброса
 btnFormReset.addEventListener('click', function (evt) {
   evt.preventDefault();
   toDefaultForm();
 });
 
+// отпарвка данных на сервер
 form.addEventListener('submit', function (evt) {
   evt.preventDefault();
 
@@ -61,7 +64,7 @@ form.addEventListener('submit', function (evt) {
   toSend(formData);
 });
 
-
+// сообщение о неудачной отправке
 function onFailed() {
   const failedTemplate = document.querySelector('#error').content.querySelector('.error');
   const mainHtml = document.querySelector('main');
@@ -79,6 +82,7 @@ function onFailed() {
   });
 }
 
+// валидация полей формы
 title.addEventListener('invalid', function () {
   if (title.validity.tooShort) {
     title.setCustomValidity('Имя должно состоять минимум из 30 символов');
@@ -135,7 +139,7 @@ function capacityRoom() {
   roomNumber.value = capacity.value;
 
   roomNumber.addEventListener('change', function () {
-    if (roomNumber.value != 100) {
+    if (+roomNumber.value !== 100) {
       capacity.value = roomNumber.value;
     } else {
       capacity.value = 0;
@@ -143,7 +147,7 @@ function capacityRoom() {
   });
 
   capacity.addEventListener('change', function () {
-    if (capacity.value != 0) {
+    if (+capacity.value !== 0) {
       roomNumber.value = capacity.value;
     } else {
       roomNumber.value = 100;
