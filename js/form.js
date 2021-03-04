@@ -32,23 +32,24 @@ function toDefaultForm() {
   capacityRoom();
 }
 
-// сообщение про успешную отправку
-function onSuccess() {
-  const successTemplate = document.querySelector('#success').content.querySelector('.success');
+// модалки на успешную \ не успешную отправку
+function renderModal(selector) {
+  const modalTemplate = document.querySelector(`#${selector}`).content.querySelector(`.${selector}`);
   const mainHtml = document.querySelector('main');
-  const successMessage = successTemplate.cloneNode(true);
-  mainHtml.appendChild(successMessage);
+  const modalMessage = modalTemplate.cloneNode(true);
+  mainHtml.appendChild(modalMessage);
 
   document.addEventListener('keydown', function (evt) {
     if (evt.key === 'Escape') {
-      successMessage.remove();
+      modalMessage.remove();
     }
   });
 
   document.addEventListener('click', function () {
-    successMessage.remove();
+    modalMessage.remove();
   });
 }
+
 
 // сброс формы по кнопке сброса
 btnFormReset.addEventListener('click', function (evt) {
@@ -64,23 +65,7 @@ form.addEventListener('submit', function (evt) {
   toSend(formData);
 });
 
-// сообщение о неудачной отправке
-function onFailed() {
-  const failedTemplate = document.querySelector('#error').content.querySelector('.error');
-  const mainHtml = document.querySelector('main');
-  const failedMessage = failedTemplate.cloneNode(true);
-  mainHtml.appendChild(failedMessage);
 
-  document.addEventListener('keydown', function (evt) {
-    if (evt.key === 'Escape') {
-      failedMessage.remove();
-    }
-  });
-
-  document.addEventListener('click', function () {
-    failedMessage.remove();
-  });
-}
 
 // валидация полей формы
 title.addEventListener('invalid', function () {
@@ -156,4 +141,4 @@ function capacityRoom() {
 
 capacityRoom();
 
-export {onFailed, onSuccess, toDefaultForm};
+export {toDefaultForm, renderModal};

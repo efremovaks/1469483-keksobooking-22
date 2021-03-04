@@ -51,18 +51,18 @@ const mainMarker = L.marker({
   icon: mainMarkerIco,
 });
 
-function mainMarkerPosition(marker) {
+function mainMarkerPosition() {
   // выводит маркер на карту
-  marker.addTo(map);
+  mainMarker.addTo(map);
   // mainMarker.remove(map);
 
-  marker.on('moveend', function (evt) {
+  mainMarker.on('moveend', function (evt) {
     const coords = evt.target.getLatLng();
     addressInput.value = coords.lat.toFixed(5) + ', ' + coords.lng.toFixed(5);
   });
 }
 
-mainMarkerPosition(mainMarker);
+mainMarkerPosition();
 
 // возвращает координаты маркера в поле адрес
 function addressCoords() {

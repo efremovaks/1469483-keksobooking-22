@@ -1,6 +1,6 @@
 import {renderToMap} from './map.js';
 import {showAlert} from './util.js';
-import {onFailed, onSuccess, toDefaultForm} from './form.js';
+import {renderModal, toDefaultForm} from './form.js';
 
 
 function getData() {
@@ -21,14 +21,14 @@ function toSend(data) {
   )
     .then((response) => {
       if (response.ok) {
-        onSuccess();
+        renderModal('success');
         toDefaultForm();
       } else {
-        onFailed();
+        renderModal('error');
       }
     })
     .catch(() => {
-      onFailed();
+      renderModal('error');
     });
 }
 
