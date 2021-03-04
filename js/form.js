@@ -101,6 +101,7 @@ price.addEventListener('input', function () {
 
   if (priceValue > MAX_PRICE_VALUE) {
     price.setCustomValidity('Цена не должна превышать 1 000 000');
+    return
   }
 
   if (priceValue < 0) {
