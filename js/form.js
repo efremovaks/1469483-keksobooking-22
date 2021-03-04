@@ -1,3 +1,8 @@
+import {toSend} from './server.js';
+import {mapCenterCoords} from './map.js';
+import {mainMarker} from './map.js';
+import {addressCoords} from './map.js';
+
 const typeMinPrice = {
   bungalow: 0,
   flat: 1000,
@@ -16,9 +21,53 @@ const title = form.querySelector('#title');
 const price = form.querySelector('#price');
 const roomNumber = form.querySelector('#room_number');
 const capacity = form.querySelector('#capacity');
+const btnFormReset = form.querySelector('.ad-form__reset');
+
+// очищает форму
+function toDefaultForm() {
+  form.reset();
+  mainMarker.setLatLng(mapCenterCoords);
+  addressCoords();
+  setMinPrice();
+  capacityRoom();
+}
+
+// модалки на успешную \ не успешную отправку
+function renderModal(selector) {
+  const modalTemplate = document.querySelector(`#${selector}`).content.querySelector(`.${selector}`);
+  const mainHtml = document.querySelector('main');
+  const modalMessage = modalTemplate.cloneNode(true);
+  mainHtml.appendChild(modalMessage);
+
+  document.addEventListener('keydown', function (evt) {
+    if (evt.key === 'Escape') {
+      modalMessage.remove();
+    }
+  });
+
+  document.addEventListener('click', function () {
+    modalMessage.remove();
+  });
+}
+
+
+// сброс формы по кнопке сброса
+btnFormReset.addEventListener('click', function (evt) {
+  evt.preventDefault();
+  toDefaultForm();
+});
+
+// отпарвка данных на сервер
+form.addEventListener('submit', function (evt) {
+  evt.preventDefault();
+
+  const formData = new FormData(evt.target);
+  toSend(formData);
+});
 
 
 
+// валидация полей формы
 title.addEventListener('invalid', function () {
   if (title.validity.tooShort) {
     title.setCustomValidity('Имя должно состоять минимум из 30 символов');
@@ -42,7 +91,6 @@ price.addEventListener('input', function () {
 
   if (priceValue < 0) {
     price.setCustomValidity('Цена не должна быть отрицательной');
-    return;
   }
 });
 
@@ -71,20 +119,26 @@ timeout.addEventListener('change', function () {
 });
 
 // синхронизирует комнаты и гостей
-roomNumber.value = capacity.value;
+function capacityRoom() {
+  roomNumber.value = capacity.value;
 
-roomNumber.addEventListener('change', function () {
-  if (roomNumber.value != 100) {
-    capacity.value = roomNumber.value;
-  } else {
-    capacity.value = 0;
-  }
-});
+  roomNumber.addEventListener('change', function () {
+    if (+roomNumber.value !== 100) {
+      capacity.value = roomNumber.value;
+    } else {
+      capacity.value = 0;
+    }
+  });
 
-capacity.addEventListener('change', function () {
-  if (capacity.value != 0) {
-    roomNumber.value = capacity.value;
-  } else {
-    roomNumber.value = 100;
-  }
-});
+  capacity.addEventListener('change', function () {
+    if (+capacity.value !== 0) {
+      roomNumber.value = capacity.value;
+    } else {
+      roomNumber.value = 100;
+    }
+  });
+}
+
+capacityRoom();
+
+export {toDefaultForm, renderModal};

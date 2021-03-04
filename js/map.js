@@ -1,17 +1,15 @@
 /* global L:readonly */
-import {createCollection} from './create-collection.js';
+
 import {getCard} from './cards.js';
 
-
 const mapCenterCoords = {
-  lat: 35.68170,
-  lng: 139.75388,
+  lat: 35.80222,
+  lng: 139.78935,
 }
 
 const form = document.querySelector('.ad-form');
 const mapFilters = document.querySelector('.map__filters');
 const mapCanvas = document.querySelector('#map-canvas');
-const adLable = createCollection(5);
 const addressInput = document.querySelector('#address');
 
 
@@ -23,11 +21,12 @@ const map = L.map(mapCanvas)
     mapFilters.classList.add('map__filters--disabled');
     mapFilters.disabled = true;
   })
+
   // координаты центровки карты и зум
   .setView({
     lat: mapCenterCoords.lat,
     lng: mapCenterCoords.lng,
-  }, 8);
+  }, 9);
 
 // карта - изображение
 L.tileLayer(
@@ -51,17 +50,26 @@ const mainMarker = L.marker({
   draggable: true,
   icon: mainMarkerIco,
 });
-// выводит маркер на карту
-mainMarker.addTo(map);
-// mainMarker.remove(map);
+
+function mainMarkerPosition() {
+  // выводит маркер на карту
+  mainMarker.addTo(map);
+  // mainMarker.remove(map);
+
+  mainMarker.on('moveend', function (evt) {
+    const coords = evt.target.getLatLng();
+    addressInput.value = coords.lat.toFixed(5) + ', ' + coords.lng.toFixed(5);
+  });
+}
+
+mainMarkerPosition();
 
 // возвращает координаты маркера в поле адрес
-addressInput.value = mapCenterCoords.lat + ', ' + mapCenterCoords.lng;
+function addressCoords() {
+  addressInput.value = mapCenterCoords.lat + ', ' + mapCenterCoords.lng;
+}
 
-mainMarker.on('moveend', function (evt) {
-  const coords = evt.target.getLatLng();
-  addressInput.value = coords.lat.toFixed(5) + ', ' + coords.lng.toFixed(5);
-});
+addressCoords();
 
 // метки объектов объявлений
 const iconLable = L.icon({
@@ -70,21 +78,31 @@ const iconLable = L.icon({
   iconAnchor: [20, 40],
 });
 
-adLable.forEach((item) => {
+// размещает маркеры предложений на карту
+function renderToMap(data) {
 
-  const newDiv = document.createElement('div');
-  newDiv.classList.add('map__card');
-  newDiv.appendChild(getCard(item));
+  data.forEach((item) => {
 
-  const marker = L.marker({
-    lat: item.location.x,
-    lng: item.location.y,
-  },
-  {
-    icon: iconLable,
+    const newDiv = document.createElement('div');
+    newDiv.classList.add('map__card');
+    newDiv.appendChild(getCard(item));
+
+    const marker = L.marker({
+      lat: item.location.lat,
+      lng: item.location.lng,
+    }, {
+      icon: iconLable,
+    });
+
+    marker.addTo(map);
+    marker.bindPopup(newDiv);
+
   });
+}
 
-  marker.addTo(map);
-  marker.bindPopup(newDiv);
-
-});
+export {
+  renderToMap,
+  mainMarker,
+  mapCenterCoords,
+  addressCoords
+}
