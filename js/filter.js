@@ -1,12 +1,3 @@
-const MapFilters = {
-  HOUSE_TYPE: [
-    'any',
-    'palace',
-    'flat',
-    'house',
-    'bungalow',
-  ],
-}
 
 const mapForm = document.querySelector('.map__filters');
 const houseType = mapForm.querySelector('#housing-type');
@@ -18,21 +9,20 @@ function addFilterListener(offers) {
 
 
   houseType.addEventListener('change', function () {
+    let newOffers = []
 
     offers.forEach((item) => {
       const typeHouses = item.offer.type;
 
       if (typeHouses == houseType.value) {
-        const newOffers = [houseType.value];
+        newOffers = houseType.value;
 
-        console.log(newOffers)
-        return newOffers;
       }
     });
+
+    console.log(newOffers)
 
   })
 }
 
-export {
-  addFilterListener
-}
+export {addFilterListener}
