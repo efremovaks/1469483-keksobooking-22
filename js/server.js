@@ -6,7 +6,7 @@ import {renderModal, toDefaultForm} from './form.js';
 function getData() {
   fetch('https://22.javascript.pages.academy/keksobooking/data')
     .then((response) => response.json())
-    .then((data) => renderToMap(data))
+    .then((data) => renderToMap(data.slice(0, 10)))
     .catch(() => {
       showAlert('При загрузке данных с сервера произошла ошибка. Попробуйте ещё раз');
     });

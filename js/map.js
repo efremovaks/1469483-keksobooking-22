@@ -7,10 +7,22 @@ const mapCenterCoords = {
   lng: 139.78935,
 }
 
+const MapFilters = {
+  HOUSE_TYPE: [
+    'any',
+    'palace',
+    'flat',
+    'house',
+    'bungalow',
+  ],
+}
+
 const form = document.querySelector('.ad-form');
 const mapFilters = document.querySelector('.map__filters');
 const mapCanvas = document.querySelector('#map-canvas');
 const addressInput = document.querySelector('#address');
+const mapForm = document.querySelector('.map__filters');
+const housingType = mapForm.querySelector('#housing-type');
 
 
 const map = L.map(mapCanvas)
@@ -94,11 +106,20 @@ function renderToMap(data) {
       icon: iconLable,
     });
 
-    marker.addTo(map);
-    marker.bindPopup(newDiv);
 
+    housingType.addEventListener('change', function() {
+      const allTypesHouse = (item.offer.type);
+      if (allTypesHouse === housingType.value) {
+        console.log(housingType.value);
+        marker.addTo(map);
+        marker.bindPopup(newDiv);
+      }
+
+    });
   });
 }
+
+
 
 export {
   renderToMap,
