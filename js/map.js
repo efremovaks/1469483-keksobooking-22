@@ -15,12 +15,13 @@ const addressInput = document.querySelector('#address');
 
 
 const map = L.map(mapCanvas)
-  // собитие НЕзагрузки карты
+  // блокировка карты до загрузки
   .on('unload', function () {
     form.classList.add('ad-form--disabled');
     form.disabled = true;
     mapFilters.classList.add('map__filters--disabled');
     mapFilters.disabled = true;
+
   })
 
   // координаты центровки карты и зум
@@ -79,6 +80,13 @@ const iconLable = L.icon({
   iconAnchor: [20, 40],
 });
 
+
+let markerList = [];
+
+function removeMarkers() {
+  markerList.forEach((marker) => map.removeLayer(marker));
+}
+
 // размещает маркеры предложений на карту
 function renderToMap(data) {
 
@@ -94,16 +102,24 @@ function renderToMap(data) {
     }, {
       icon: iconLable,
     });
+
+    markerList.push(marker);
     marker.addTo(map);
     marker.bindPopup(newDiv);
   });
 }
 
+// перерисовывает маркеры после удаления
+function reRenderMarkers(data) {
+  removeMarkers();
+  renderToMap(data);
+}
 
 
 export {
   renderToMap,
   mainMarker,
   mapCenterCoords,
-  addressCoords
+  addressCoords,
+  reRenderMarkers
 }

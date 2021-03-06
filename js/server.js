@@ -1,16 +1,25 @@
 import {renderToMap} from './map.js';
 import {showAlert} from './util.js';
 import {renderModal, toDefaultForm} from './form.js';
+import {addFilterListener} from './filter.js';
 
 
-// function getData() {
-//   fetch('https://22.javascript.pages.academy/keksobooking/data')
-//     .then((response) => response.json())
-//     .then((data) => renderToMap(data.slice(0, 10)))
-//     .catch(() => {
-//       showAlert('При загрузке данных с сервера произошла ошибка. Попробуйте ещё раз');
-//     });
-// }
+let offers = [];
+
+function getData() {
+  fetch('https://22.javascript.pages.academy/keksobooking/data')
+    .then((response) => response.json())
+    .then(
+      (data) => {
+        offers = data.slice(0, 10);
+        renderToMap(offers);
+        addFilterListener(offers);
+      },
+    )
+    .catch(() => {
+      showAlert('При загрузке данных с сервера произошла ошибка. Попробуйте ещё раз');
+    });
+}
 
 function toSend(data) {
   fetch(
@@ -33,6 +42,6 @@ function toSend(data) {
 }
 
 export {
-  // getData,
+  getData,
   toSend
 };
