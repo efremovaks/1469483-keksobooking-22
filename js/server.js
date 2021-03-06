@@ -1,16 +1,16 @@
-import {renderToMap} from './map.js';
-import {showAlert} from './util.js';
-import {renderModal, toDefaultForm} from './form.js';
+import {
+  renderModal,
+  toDefaultForm
+} from './form.js';
 
 
-function getData() {
-  fetch('https://22.javascript.pages.academy/keksobooking/data')
+function getData(url, onSuccess, error) {
+  fetch(url)
     .then((response) => response.json())
-    .then((data) => renderToMap(data))
-    .catch(() => {
-      showAlert('При загрузке данных с сервера произошла ошибка. Попробуйте ещё раз');
-    });
+    .then(data => onSuccess(data))
+    .catch(error);
 }
+
 
 function toSend(data) {
   fetch(
