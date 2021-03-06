@@ -1,12 +1,14 @@
-import {renderModal, toDefaultForm} from './form.js';
+import {
+  renderModal,
+  toDefaultForm
+} from './form.js';
 
 
-
-function getData(url, onSuccess, onError) {
+function getData(url, onSuccess, error) {
   fetch(url)
     .then((response) => response.json())
     .then(data => onSuccess(data))
-    .catch(() => onError())
+    .catch(error);
 }
 
 
