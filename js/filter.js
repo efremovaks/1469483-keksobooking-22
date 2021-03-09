@@ -14,7 +14,6 @@ const PriceRange = {
   },
 };
 
-
 function addFilterListener(offers, filterType) {
   filterType.addEventListener('change', function () {
 
