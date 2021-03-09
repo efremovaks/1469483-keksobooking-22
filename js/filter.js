@@ -1,4 +1,6 @@
-import {reRenderMarkers} from './map.js';
+import {
+  reRenderMarkers
+} from './map.js';
 
 const PriceRange = {
   LOW: {
@@ -11,41 +13,43 @@ const PriceRange = {
   },
   HIGH: {
     MIN: 50000,
+
   },
 };
 
-function addFilterListener(offers, filterType) {
-  filterType.addEventListener('change', function () {
+
+const mapForm = document.querySelector('.map__filters');
+const houseType = mapForm.querySelector('#housing-type');
+const housingPrice = mapForm.querySelector('#housing-price');
+
+
+function addFilterListener(offers) {
+
+  houseType.addEventListener('change', function () {
 
     // создаем коллекцию подходящих элементов
-    if (filterType.value === 'any') {
+    if (houseType.value === 'any') {
       reRenderMarkers(offers);
       return
     }
-
-    const filteredOffers = offers.filter((item) => item.offer.type === filterType.value);
+    const filteredOffers = offers.filter((item) => item.offer.type === houseType.value);
     reRenderMarkers(filteredOffers);
-
-    if (PriceRange == filterType.value) {
-      console.log(PriceRange)
-
-    }
-
-    const filteredPrice = offers.filter((item) => item.offer.price === filterType.value);
-    console.log('фильтр - значение ', filterType.value)
-    console.log('цена ', filteredPrice)
-
-
-
-    // if (filterType.value === 'any') {
-    //   reRenderMarkers(offers);
-    // } else {
-    //   const filteredPrice = offers.filter((item) => item.offer.price === filterType.value);
-    //   console.log(filterType.value)
-    //   console.log(filteredPrice)
-    //   reRenderMarkers(filteredPrice);
-    // }
   });
+
+  housingPrice.addEventListener('change', function () {
+    if (housingPrice.value === 'low') {
+      const filteredPrice = offers.filter((item) => item.offer.price <= PriceRange.LOW.MAX);
+      reRenderMarkers(filteredPrice);
+    } else if (housingPrice.value === 'middle') {
+      const filteredPrice = offers.filter((item) => item.offer.price > PriceRange.MIDDLE.MIN && item.offer.price < PriceRange.MIDDLE.MAX);
+      reRenderMarkers(filteredPrice);
+    } else if ((housingPrice.value === 'high')) {
+      const filteredPrice = offers.filter((item) => item.offer.price > PriceRange.HIGH.MIN);
+      reRenderMarkers(filteredPrice);
+    } else {
+      reRenderMarkers(offers);
+    }
+  })
 }
 
 export {
