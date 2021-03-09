@@ -9,7 +9,9 @@ import {showAlert} from './util.js';
 import {addFilterListener} from './filter.js';
 import {getData} from './server.js';
 
-
+const mapForm = document.querySelector('.map__filters');
+const houseType = mapForm.querySelector('#housing-type');
+const housingPrice = mapForm.querySelector('#housing-price');
 
 let offers = [];
 
@@ -33,7 +35,8 @@ getData(
   ((data) => {
     offers = data.slice(0, 10);
     renderToMap(offers);
-    addFilterListener(offers);
+    addFilterListener(offers, houseType);
+    addFilterListener(offers, housingPrice);
   }),
   (() => {showAlert('При загрузке данных с сервера произошла ошибка. Попробуйте ещё раз');}),
 )

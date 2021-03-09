@@ -1,17 +1,25 @@
 import {reRenderMarkers} from './map.js';
 
 
-const mapForm = document.querySelector('.map__filters');
-const houseType = mapForm.querySelector('#housing-type');
 
-function addFilterListener(offers) {
-  houseType.addEventListener('change', function () {
+
+function addFilterListener(offers, filterType) {
+  filterType.addEventListener('change', function () {
 
     // создаем коллекцию подходящих элементов
-    if (houseType.value === 'any') {
+    if (filterType.value === 'any') {
       reRenderMarkers(offers);
     } else {
-      const filteredOffers = offers.filter((item) => item.offer.type === houseType.value);
+      const filteredOffers = offers.filter((item) => item.offer.type === filterType.value);
+      console.log(filteredOffers)
+      reRenderMarkers(filteredOffers);
+    }
+
+    if (filterType.value === 'any') {
+      reRenderMarkers(offers);
+    } else {
+      const filteredOffers = offers.filter((item) => item.offer.price === filterType.value);
+      console.log(filteredOffers)
       reRenderMarkers(filteredOffers);
     }
   });
