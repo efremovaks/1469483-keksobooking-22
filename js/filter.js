@@ -1,8 +1,6 @@
 import {reRenderMarkers} from './map.js';
 
 
-
-
 function addFilterListener(offers, filterType) {
   filterType.addEventListener('change', function () {
 
