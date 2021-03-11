@@ -10,7 +10,7 @@ import {addFilterListener} from './filter.js';
 import {getData} from './server.js';
 
 
-let offers = [];
+// let offers = [];
 
 // function getData() {
 //   fetch('https://22.javascript.pages.academy/keksobooking/data')
@@ -29,8 +29,8 @@ let offers = [];
 
 getData(
   'https://22.javascript.pages.academy/keksobooking/data',
-  ((data) => {
-    offers = data.slice(0, 10);
+  ((offers) => {
+    // offers = data.slice(0, 10);
     renderToMap(offers);
     addFilterListener(offers);
   }),
