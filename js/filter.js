@@ -19,6 +19,21 @@ const PriceRange = {
 const mapForm = document.querySelector('.map__filters');
 const selects = mapForm.querySelectorAll('select');
 
+function checkPrice (value, range) {
+
+  switch (value) {
+    case 'low':
+      return range <= PriceRange.LOW.MAX;
+    case 'middle':
+      return range >= PriceRange.MIDDLE.MIN && range <= PriceRange.MIDDLE.MAX;
+    case 'high':
+      return range >= PriceRange.HIGH.MIN;
+    default:
+      return false;
+  }
+}
+
+
 
 // в этой функции описываем все проверки селектов
 // selectType - типы фильтров из фильтров
@@ -41,16 +56,7 @@ function matchSelect(offer, selectType, selectValue) {
   }
 
   if (selectType === 'price') {
-
-    if (selectValue === 'low') {
-      return offer[selectType] <= PriceRange.LOW.MAX;
-    }
-    if (selectValue === 'middle') {
-      return offer[selectType] >= PriceRange.MIDDLE.MIN && offer[selectType] <= PriceRange.MIDDLE.MAX;
-    }
-    if (selectValue === 'high') {
-      return offer[selectType] >= PriceRange.HIGH.MIN;
-    }
+    return checkPrice (selectValue, offer[selectType]);
   }
 
   return true;
