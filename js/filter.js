@@ -38,28 +38,18 @@ function checkPrice (value, range) {
 // в этой функции описываем все проверки селектов
 // selectType - типы фильтров из фильтров
 function matchSelect(offer, selectType, selectValue) {
-  // console.log(selectType)
+
   if (selectValue === 'any') {
     return true
   }
 
-  if (selectType === 'type') {
-    return offer[selectType] === selectValue; // если значение из карточки = выбранному в фильтре значению, возвращаем true для совпавших
-  }
-
-  if (selectType === 'rooms') {
-    return offer[selectType] === +selectValue;
-  }
-
-  if (selectType === 'guests') {
-    return offer[selectType] === +selectValue;
+  if (selectType === 'type' || selectType === 'rooms' || selectType === 'guests') {
+    return selectValue === offer[selectType].toString(); // если значение из карточки = выбранному в фильтре значению, возвращаем true для совпавших
   }
 
   if (selectType === 'price') {
     return checkPrice (selectValue, offer[selectType]);
   }
-
-  return true;
 }
 
 // функция проверки всеx селектов для оффера
