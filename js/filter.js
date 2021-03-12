@@ -2,6 +2,7 @@ import {
   reRenderMarkers
 } from './map.js';
 
+
 const PriceRange = {
   LOW: {
     MAX: 10000,
@@ -19,6 +20,16 @@ const PriceRange = {
 const mapForm = document.querySelector('.map__filters');
 const selects = mapForm.querySelectorAll('select');
 
+function debounce(fn, ms) {
+  let timeout;
+  return function () {
+    const fnCall = () => {
+      fn.apply(this)
+    }
+    clearTimeout(timeout);
+    timeout = setTimeout(fnCall, ms)
+  };
+}
 
 
 function checkPrice(value, range) {
@@ -33,24 +44,6 @@ function checkPrice(value, range) {
     default:
       return false;
   }
-}
-
-
-function matchFeaturesForOffer(offer) {
-  const features = mapForm.querySelectorAll('input:checked');
-  const filterFeatureList = Array.from(features);
-
-  if (filterFeatureList.length === 0) {
-    return true;
-  }
-
-  return filterFeatureList.every((feature) => {
-    if (filterFeatureList.length < offer.features.length) {
-      return false;
-    }
-
-    return offer.features.includes(feature.value);
-  });
 }
 
 
@@ -81,27 +74,51 @@ function matchSelectsForOffer(offer) {
   });
 }
 
+function matchFeaturesForOffer(offer) {
+  const features = mapForm.querySelectorAll('input:checked');
+  const filterFeatureList = Array.from(features);
+
+  if (filterFeatureList.length === 0) {
+    return true;
+  }
+
+  if (filterFeatureList.length < offer.features.length) {
+    return false;
+  }
+
+  return filterFeatureList.every((feature) => {
+    return offer.features.includes(feature.value);
+  });
+}
 
 function addFilterListener(offers) {
+
   mapForm.addEventListener('change', function () {
-    let filteredOffers = [];
+    const offerList = offers;
 
-    offers.some((offerItem) => {
-      // выходим из цикла если есть уже 10 элементов
-      if (filteredOffers.length >= 10) {
-        return true;
-      }
+    function orderFilter(items) {
+      let filteredOffers = [];
 
-      // здесь делаем проверки подходит ли оффер для того чтоб показать его на карте
-      if (matchSelectsForOffer(offerItem.offer) && matchFeaturesForOffer(offerItem.offer)) {
-        filteredOffers.push(offerItem);
-      }
-    });
+      items.some((offerItem) => {
+        console.log(offerItem);
+        // выходим из цикла если есть уже 10 элементов
+        if (filteredOffers.length >= 10) {
+          return true;
+        }
 
-    reRenderMarkers(filteredOffers);
+        // здесь делаем проверки подходит ли оффер для того чтоб показать его на карте
+        if (matchSelectsForOffer(offerItem.offer) && matchFeaturesForOffer(offerItem.offer)) {
+
+          filteredOffers.push(offerItem);
+        }
+      });
+    }
+
+    const db = debounce(orderFilter(offerList), 500)
+    reRenderMarkers(db);
   });
 }
 
 export {
   addFilterListener
-}
+};

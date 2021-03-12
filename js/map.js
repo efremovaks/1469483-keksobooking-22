@@ -116,10 +116,4 @@ function reRenderMarkers(data) {
 }
 
 
-export {
-  renderToMap,
-  mainMarker,
-  mapCenterCoords,
-  addressCoords,
-  reRenderMarkers
-}
+export {renderToMap, mainMarker, mapCenterCoords, addressCoords, reRenderMarkers};
