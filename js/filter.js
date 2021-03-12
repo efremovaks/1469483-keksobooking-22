@@ -24,7 +24,7 @@ function debounce(fn, ms) {
   let timeout;
   return function () {
     const fnCall = () => {
-      fn.apply(this)
+      fn.apply(this, arguments)
     }
     clearTimeout(timeout);
     timeout = setTimeout(fnCall, ms)
@@ -95,7 +95,6 @@ function orderFilter(items) {
   let filteredOffers = [];
 
   items.some((offerItem) => {
-    filteredOffers.push(offerItem);
     // выходим из цикла если есть уже 10 элементов
     if (filteredOffers.length >= 10) {
       return true;
@@ -113,9 +112,7 @@ function orderFilter(items) {
 function addFilterListener(offers) {
 
   mapForm.addEventListener('change', function () {
-
-    debounce(orderFilter(offers), 500)
-
+    debounce(orderFilter(offers), 500);
   });
 }
 
