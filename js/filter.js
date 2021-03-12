@@ -18,8 +18,6 @@ const PriceRange = {
 
 const mapForm = document.querySelector('.map__filters');
 const selects = mapForm.querySelectorAll('select');
-const features = mapForm.querySelectorAll('input:checked');
-// console.log(features);
 
 
 
@@ -37,21 +35,17 @@ function checkPrice(value, range) {
   }
 }
 
-function checkFeatures(offer, typeFeature, value) {
-  if (typeFeature) {
-    console.log('checkFeatures', offer[value]);
-  }
-}
 
 function matchFeaturesForOffer(offer) {
+  const features = mapForm.querySelectorAll('input:checked');
   const array = Array.from(features);
-  // if (array.length === 0) {
-  //   return true;
-  // }
+
+  if (array.length === 0) {
+    return true;
+  }
 
   return array.every((feature) => {
-    // console.log('array ', array);
-    return checkFeatures(offer, feature, feature.value);
+    return offer.features.includes(feature.value);
   });
 }
 
