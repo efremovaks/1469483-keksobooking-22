@@ -91,31 +91,31 @@ function matchFeaturesForOffer(offer) {
   });
 }
 
+function orderFilter(items) {
+  let filteredOffers = [];
+
+  items.some((offerItem) => {
+    filteredOffers.push(offerItem);
+    // выходим из цикла если есть уже 10 элементов
+    if (filteredOffers.length >= 10) {
+      return true;
+    }
+
+    // здесь делаем проверки подходит ли оффер для того чтоб показать его на карте
+    if (matchSelectsForOffer(offerItem.offer) && matchFeaturesForOffer(offerItem.offer)) {
+      filteredOffers.push(offerItem);
+    }
+  });
+
+  reRenderMarkers(filteredOffers);
+}
+
 function addFilterListener(offers) {
 
   mapForm.addEventListener('change', function () {
-    const offerList = offers;
 
-    function orderFilter(items) {
-      let filteredOffers = [];
+    debounce(orderFilter(offers), 500)
 
-      items.some((offerItem) => {
-        console.log(offerItem);
-        // выходим из цикла если есть уже 10 элементов
-        if (filteredOffers.length >= 10) {
-          return true;
-        }
-
-        // здесь делаем проверки подходит ли оффер для того чтоб показать его на карте
-        if (matchSelectsForOffer(offerItem.offer) && matchFeaturesForOffer(offerItem.offer)) {
-
-          filteredOffers.push(offerItem);
-        }
-      });
-    }
-
-    const db = debounce(orderFilter(offerList), 500)
-    reRenderMarkers(db);
   });
 }
 
