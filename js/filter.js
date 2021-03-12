@@ -38,13 +38,17 @@ function checkPrice(value, range) {
 
 function matchFeaturesForOffer(offer) {
   const features = mapForm.querySelectorAll('input:checked');
-  const array = Array.from(features);
+  const filterFeatureList = Array.from(features);
 
-  if (array.length === 0) {
+  if (filterFeatureList.length === 0) {
     return true;
   }
 
-  return array.every((feature) => {
+  return filterFeatureList.every((feature) => {
+    if (filterFeatureList.length < offer.features.length) {
+      return false;
+    }
+
     return offer.features.includes(feature.value);
   });
 }
