@@ -18,8 +18,12 @@ const PriceRange = {
 
 const mapForm = document.querySelector('.map__filters');
 const selects = mapForm.querySelectorAll('select');
+const features = mapForm.querySelectorAll('input:checked');
+// console.log(features);
 
-function checkPrice (value, range) {
+
+
+function checkPrice(value, range) {
 
   switch (value) {
     case 'low':
@@ -33,6 +37,23 @@ function checkPrice (value, range) {
   }
 }
 
+function checkFeatures(offer, typeFeature, value) {
+  if (typeFeature) {
+    console.log('checkFeatures', offer[value]);
+  }
+}
+
+function matchFeaturesForOffer(offer) {
+  const array = Array.from(features);
+  // if (array.length === 0) {
+  //   return true;
+  // }
+
+  return array.every((feature) => {
+    // console.log('array ', array);
+    return checkFeatures(offer, feature, feature.value);
+  });
+}
 
 
 // в этой функции описываем все проверки селектов
@@ -43,13 +64,13 @@ function matchSelect(offer, selectType, selectValue) {
     return true
   }
 
-  if (selectType === 'type' || selectType === 'rooms' || selectType === 'guests') {
-    return selectValue === offer[selectType].toString(); // если значение из карточки = выбранному в фильтре значению, возвращаем true для совпавших
+  if (selectType === 'price') {
+    return checkPrice(selectValue, offer[selectType]);
   }
 
-  if (selectType === 'price') {
-    return checkPrice (selectValue, offer[selectType]);
-  }
+  // if (selectType === 'type' || selectType === 'rooms' || selectType === 'guests')) {
+  return selectValue === offer[selectType].toString(); // если значение из карточки = выбранному в фильтре значению, возвращаем true для совпавших
+
 }
 
 // функция проверки всеx селектов для оффера
@@ -62,6 +83,7 @@ function matchSelectsForOffer(offer) {
   });
 }
 
+
 function addFilterListener(offers) {
   mapForm.addEventListener('change', function () {
     let filteredOffers = [];
@@ -73,7 +95,7 @@ function addFilterListener(offers) {
       }
 
       // здесь делаем проверки подходит ли оффер для того чтоб показать его на карте
-      if (matchSelectsForOffer(offerItem.offer)) {
+      if (matchSelectsForOffer(offerItem.offer) && matchFeaturesForOffer(offerItem.offer)) {
         filteredOffers.push(offerItem);
       }
     });
