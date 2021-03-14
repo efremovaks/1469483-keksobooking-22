@@ -23,17 +23,6 @@ function getRandomItem(array) {
 }
 
 
-// function getArrayStrings(arr) {
-//   const someArr = [];
-//   const lenArr = random(0, arr.length - 1);
-
-//   for (let x = 0; x < lenArr + 1; x++) {
-//     someArr.push(arr[x]);
-//   }
-//   return someArr;
-// }
-
-
 function getArrayStrings(arr) {
 
   const lenArr = random(0, arr.length - 1) || 1;
@@ -68,6 +57,5 @@ function setOffer() {
     location: coordinates,
   };
 }
-
 
 export {setOffer};

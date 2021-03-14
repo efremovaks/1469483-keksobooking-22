@@ -50,7 +50,6 @@ function renderModal(selector) {
   });
 }
 
-
 // сброс формы по кнопке сброса
 btnFormReset.addEventListener('click', function (evt) {
   evt.preventDefault();
@@ -65,8 +64,6 @@ form.addEventListener('submit', function (evt) {
   toSend(formData);
 });
 
-
-
 // валидация полей формы
 title.addEventListener('invalid', function () {
   if (title.validity.tooShort) {
@@ -79,7 +76,6 @@ title.addEventListener('invalid', function () {
     title.setCustomValidity('');
   }
 });
-
 
 price.addEventListener('input', function () {
   const priceValue = price.value.length;
@@ -105,7 +101,6 @@ setMinPrice();
 typeForm.addEventListener('change', function () {
   setMinPrice();
 });
-
 
 // синхронизируем время въезда/выезда
 timein.value = timeout.value;

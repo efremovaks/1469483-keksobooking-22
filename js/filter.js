@@ -1,6 +1,4 @@
-import {
-  reRenderMarkers
-} from './map.js';
+import {reRenderMarkers} from './map.js';
 
 
 const PriceRange = {
@@ -24,10 +22,10 @@ function debounce(fn, ms) {
   let timeout;
   return function () {
     const fnCall = () => {
-      fn.apply(this, arguments)
+      fn.apply(this, arguments);
     }
     clearTimeout(timeout);
-    timeout = setTimeout(fnCall, ms)
+    timeout = setTimeout(fnCall, ms);
   };
 }
 
@@ -52,7 +50,7 @@ function checkPrice(value, range) {
 function matchSelect(offer, selectType, selectValue) {
 
   if (selectValue === 'any') {
-    return true
+    return true;
   }
 
   if (selectType === 'price') {
@@ -110,12 +108,10 @@ function orderFilter(items) {
 }
 
 function addFilterListener(offers) {
+  const onFilterChange = debounce(() => orderFilter(offers), 500);
 
-  mapForm.addEventListener('change', function () {
-    debounce(orderFilter(offers), 500);
-  });
+  mapForm.addEventListener('change', onFilterChange);
 }
 
-export {
-  addFilterListener
-};
+
+export {addFilterListener};

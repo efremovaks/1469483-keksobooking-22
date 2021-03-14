@@ -1,7 +1,4 @@
-import {
-  renderModal,
-  toDefaultForm
-} from './form.js';
+import {renderModal, toDefaultForm} from './form.js';
 
 
 function getData(url, onSuccess, error) {
@@ -32,7 +29,4 @@ function toSend(data) {
     });
 }
 
-export {
-  getData,
-  toSend
-};
+export {getData, toSend};
