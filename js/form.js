@@ -118,18 +118,20 @@ function capacityRoom() {
   roomNumber.value = capacity.value;
 
   roomNumber.addEventListener('change', function () {
-    if (+roomNumber.value !== 100) {
-      capacity.value = roomNumber.value;
-    } else {
+
+    if (+roomNumber.value === 100) {
       capacity.value = 0;
+    } else if (roomNumber.value >= capacity.value) {
+      capacity.value <= roomNumber.value;
     }
   });
 
   capacity.addEventListener('change', function () {
-    if (+capacity.value !== 0) {
-      roomNumber.value = capacity.value;
-    } else {
+
+    if (+capacity.value === 0) {
       roomNumber.value = 100;
+    } else if (capacity.value >= roomNumber.value) {
+      roomNumber.value <= capacity.value;
     }
   });
 }
