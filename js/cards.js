@@ -6,7 +6,6 @@ const typeOptions = {
   palace: 'Дворец',
 };
 
-const PHOTO_ALT = 'Фотография жилья';
 const PHOTO_WIGTH = 45;
 const PHOTO_HEIGHT = 40;
 
@@ -32,7 +31,7 @@ function getPhotos(container, photosList) {
     const img = document.createElement('img');
     img.classList.add('popup__photo');
     img.src = element;
-    img.alt = PHOTO_ALT;
+    img.alt = 'Фотография жилья';
     img.width = PHOTO_WIGTH;
     img.height = PHOTO_HEIGHT;
     container.appendChild(img);
