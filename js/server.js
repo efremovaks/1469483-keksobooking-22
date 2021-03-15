@@ -20,7 +20,7 @@ function toSend(url, data, onSuccess, error) {
         error();
       }
     })
-    .catch(error());
+    .catch(error);
 }
 
 
