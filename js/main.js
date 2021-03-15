@@ -51,7 +51,7 @@ form.addEventListener('submit', function (evt) {
       renderModal('success');
       toDefaultForm(offers);
     },
-    renderModal('error'));
+    () => renderModal('error'));
 });
 
 // сброс формы по кнопке сброса

@@ -17,10 +17,10 @@ function toSend(url, data, onSuccess, error) {
       if (response.ok) {
         onSuccess(response);
       } else {
-        error;
+        error();
       }
     })
-    .catch(error);
+    .catch(error());
 }
 
 
