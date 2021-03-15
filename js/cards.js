@@ -6,6 +6,10 @@ const typeOptions = {
   palace: 'Дворец',
 };
 
+const PHOTO_ALT = 'Фотография жилья';
+const PHOTO_WIGTH = 45;
+const PHOTO_HEIGHT = 40;
+
 const template = document.querySelector('#card').content.querySelector('.popup');
 
 
@@ -28,9 +32,9 @@ function getPhotos(container, photosList) {
     const img = document.createElement('img');
     img.classList.add('popup__photo');
     img.src = element;
-    img.alt = 'Фотография жилья';
-    img.width = 45;
-    img.height = 40;
+    img.alt = PHOTO_ALT;
+    img.width = PHOTO_WIGTH;
+    img.height = PHOTO_HEIGHT;
     container.appendChild(img);
   });
 }
