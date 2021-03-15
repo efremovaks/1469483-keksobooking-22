@@ -1,6 +1,7 @@
 import {reRenderMarkers} from './map.js';
 
 const MAX_COUNT = 10;
+const DEBOUNCE_TIME = 500;
 
 const PriceRange = {
   LOW: {
@@ -77,11 +78,11 @@ function matchFeaturesForOffer(offer) {
   const features = mapForm.querySelectorAll('input:checked');
   const filterFeatureList = Array.from(features);
 
-  if (filterFeatureList.length === 0) {
+  if (filterFeatureList.length === 0 || offer.features.length === 0) {
     return true;
   }
 
-  if (filterFeatureList.length < offer.features.length) {
+  if (offer.features.length < filterFeatureList.length) {
     return false;
   }
 
@@ -109,7 +110,7 @@ function orderFilter(items) {
 }
 
 function addFilterListener(offers) {
-  const onFilterChange = debounce(() => orderFilter(offers), 500);
+  const onFilterChange = debounce(() => orderFilter(offers), DEBOUNCE_TIME);
 
   mapForm.addEventListener('change', onFilterChange);
 }
