@@ -26,7 +26,7 @@ function randomFloat(min = 0, max = 10) {
   return rand.toFixed(5);
 }
 
-const showAlert = (message) => {
+function showAlert (message) {
   const alertContainer = document.createElement('div');
   alertContainer.style.zIndex = 100;
   alertContainer.style.position = 'absolute';

@@ -1,7 +1,8 @@
-import {toSend} from './server.js';
 import {mapCenterCoords} from './map.js';
 import {mainMarker} from './map.js';
 import {addressCoords} from './map.js';
+import {renderToMap} from './map.js';
+
 
 const typeMinPrice = {
   bungalow: 0,
@@ -13,6 +14,7 @@ const typeMinPrice = {
 const MAX_PRICE_VALUE = 1000000;
 
 const form = document.querySelector('.ad-form');
+const mapForm = document.querySelector('.map__filters');
 const priceFormInput = form.querySelector('#price');
 const typeForm = form.querySelector('#type');
 const timein = form.querySelector('#timein');
@@ -21,11 +23,13 @@ const title = form.querySelector('#title');
 const price = form.querySelector('#price');
 const roomNumber = form.querySelector('#room_number');
 const capacity = form.querySelector('#capacity');
-const btnFormReset = form.querySelector('.ad-form__reset');
+
 
 // очищает форму
-function toDefaultForm() {
+function toDefaultForm(offers) {
+  mapForm.reset();
   form.reset();
+  renderToMap(offers);
   mainMarker.setLatLng(mapCenterCoords);
   addressCoords();
   setMinPrice();
@@ -49,20 +53,6 @@ function renderModal(selector) {
     modalMessage.remove();
   });
 }
-
-// сброс формы по кнопке сброса
-btnFormReset.addEventListener('click', function (evt) {
-  evt.preventDefault();
-  toDefaultForm();
-});
-
-// отпарвка данных на сервер
-form.addEventListener('submit', function (evt) {
-  evt.preventDefault();
-
-  const formData = new FormData(evt.target);
-  toSend(formData);
-});
 
 // валидация полей формы
 title.addEventListener('invalid', function () {

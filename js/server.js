@@ -1,6 +1,3 @@
-import {renderModal, toDefaultForm} from './form.js';
-
-
 function getData(url, onSuccess, error) {
   fetch(url)
     .then((response) => response.json())
@@ -9,24 +6,25 @@ function getData(url, onSuccess, error) {
 }
 
 
-function toSend(data) {
+function toSend(url, data, onSuccess, error) {
   fetch(
-    'https://22.javascript.pages.academy/keksobooking', {
+    url, {
       method: 'POST',
       body: data,
     },
   )
     .then((response) => {
       if (response.ok) {
-        renderModal('success');
-        toDefaultForm();
+        onSuccess(response);
       } else {
-        renderModal('error');
+        error;
       }
     })
-    .catch(() => {
-      renderModal('error');
-    });
+    .catch(error);
 }
 
-export {getData, toSend};
+
+export {
+  getData,
+  toSend
+};

@@ -1,16 +1,61 @@
 import './form.js';
 import './map.js';
-import {renderToMap} from './map.js';
-import {showAlert} from './util.js';
-import {addFilterListener} from './filter.js';
-import {getData} from './server.js';
+import {
+  renderToMap
+} from './map.js';
+import {
+  showAlert
+} from './util.js';
+import {
+  addFilterListener
+} from './filter.js';
+import {
+  getData,
+  toSend
+} from './server.js';
+import {
+  renderModal,
+  toDefaultForm
+} from './form.js';
 
+
+const form = document.querySelector('.ad-form');
+const btnFormReset = form.querySelector('.ad-form__reset');
+
+
+let offers = [];
 
 getData(
   'https://22.javascript.pages.academy/keksobooking/data',
-  ((offers) => {
+  ((data) => {
+    offers = data.slice(0, 10);
     renderToMap(offers);
     addFilterListener(offers);
+
+    toDefaultForm(offers);
   }),
-  (() => {showAlert('При загрузке данных с сервера произошла ошибка. Попробуйте ещё раз');}),
-)
+  (() => {
+    showAlert('При загрузке данных с сервера произошла ошибка. Попробуйте ещё раз');
+  }),
+);
+
+
+// отправка данных на сервер
+form.addEventListener('submit', function (evt) {
+  evt.preventDefault();
+
+  const formData = new FormData(evt.target);
+  toSend('https://22.javascript.pages.academy/keksobooking',
+    formData,
+    () => {
+      renderModal('success');
+      toDefaultForm(offers);
+    },
+    renderModal('error'));
+});
+
+// сброс формы по кнопке сброса
+btnFormReset.addEventListener('click', function (evt) {
+  evt.preventDefault();
+  toDefaultForm(offers);
+});

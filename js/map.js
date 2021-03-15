@@ -88,7 +88,10 @@ function removeMarkers() {
 }
 
 // размещает маркеры предложений на карту
-function renderToMap(data) {
+function renderToMap(data = []) {
+  if (data.length < 1) {
+    return;
+  }
 
   data.forEach((item) => {
 
