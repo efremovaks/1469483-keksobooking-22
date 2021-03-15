@@ -1,7 +1,4 @@
-import {mapCenterCoords} from './map.js';
-import {mainMarker} from './map.js';
-import {addressCoords} from './map.js';
-import {renderToMap} from './map.js';
+import {mapCenterCoords, mainMarker, addressCoords, renderToMap} from './map.js';
 
 
 const typeMinPrice = {

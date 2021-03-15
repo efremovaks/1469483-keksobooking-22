@@ -1,34 +1,24 @@
 import './form.js';
 import './map.js';
-import {
-  renderToMap
-} from './map.js';
-import {
-  showAlert
-} from './util.js';
-import {
-  addFilterListener
-} from './filter.js';
-import {
-  getData,
-  toSend
-} from './server.js';
-import {
-  renderModal,
-  toDefaultForm
-} from './form.js';
+import {renderToMap} from './map.js';
+import {showAlert} from './util.js';
+import {addFilterListener, MAX_COUNT} from './filter.js';
+import {getData, toSend} from './server.js';
+import {renderModal, toDefaultForm} from './form.js';
 
 
 const form = document.querySelector('.ad-form');
 const btnFormReset = form.querySelector('.ad-form__reset');
+const GET_URL = 'https://22.javascript.pages.academy/keksobooking/data';
+const POST_URL = 'https://22.javascript.pages.academy/keksobooking';
 
 
 let offers = [];
 
 getData(
-  'https://22.javascript.pages.academy/keksobooking/data',
+  GET_URL,
   ((data) => {
-    offers = data.slice(0, 10);
+    offers = data.slice(0, MAX_COUNT);
     renderToMap(offers);
     addFilterListener(offers);
 
@@ -45,7 +35,7 @@ form.addEventListener('submit', function (evt) {
   evt.preventDefault();
 
   const formData = new FormData(evt.target);
-  toSend('https://22.javascript.pages.academy/keksobooking',
+  toSend(POST_URL,
     formData,
     () => {
       renderModal('success');

@@ -2,16 +2,21 @@
 
 import {getCard} from './cards.js';
 
+const ZOOM = 9;
+const MAIN_MARKER_WIDTH = 50;
+const MAIN_MARKER_HEIGHT = 50;
+const OFFER_MARKER_WIDTH = 40;
+const OFFER_MARKER_HEIGHT = 40;
+
 const mapCenterCoords = {
   lat: 35.80222,
   lng: 139.78935,
-}
+};
 
 const form = document.querySelector('.ad-form');
 const mapFilters = document.querySelector('.map__filters');
 const mapCanvas = document.querySelector('#map-canvas');
 const addressInput = document.querySelector('#address');
-
 
 
 const map = L.map(mapCanvas)
@@ -21,14 +26,13 @@ const map = L.map(mapCanvas)
     form.disabled = true;
     mapFilters.classList.add('map__filters--disabled');
     mapFilters.disabled = true;
-
   })
 
   // координаты центровки карты и зум
   .setView({
     lat: mapCenterCoords.lat,
     lng: mapCenterCoords.lng,
-  }, 9);
+  }, ZOOM);
 
 // карта - изображение
 L.tileLayer(
@@ -40,8 +44,8 @@ L.tileLayer(
 // кастомный маркер
 const mainMarkerIco = L.icon({
   iconUrl: './img/main-pin.svg',
-  iconSize: [50, 50],
-  iconAnchor: [25, 50],
+  iconSize: [MAIN_MARKER_WIDTH, MAIN_MARKER_HEIGHT],
+  iconAnchor: [MAIN_MARKER_WIDTH / 2, MAIN_MARKER_HEIGHT],
 });
 
 // добавляеет маркер по координатам
@@ -76,8 +80,8 @@ addressCoords();
 // метки объектов объявлений
 const iconLable = L.icon({
   iconUrl: './img/pin.svg',
-  iconSize: [40, 40],
-  iconAnchor: [20, 40],
+  iconSize: [OFFER_MARKER_WIDTH, OFFER_MARKER_HEIGHT],
+  iconAnchor: [OFFER_MARKER_WIDTH / 2, OFFER_MARKER_HEIGHT],
 });
 
 

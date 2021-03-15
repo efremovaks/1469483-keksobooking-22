@@ -24,7 +24,4 @@ function toSend(url, data, onSuccess, error) {
 }
 
 
-export {
-  getData,
-  toSend
-};
+export {getData, toSend};

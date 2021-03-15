@@ -1,5 +1,6 @@
 import {reRenderMarkers} from './map.js';
 
+const MAX_COUNT = 10;
 
 const PriceRange = {
   LOW: {
@@ -94,7 +95,7 @@ function orderFilter(items) {
 
   items.some((offerItem) => {
     // выходим из цикла если есть уже 10 элементов
-    if (filteredOffers.length >= 10) {
+    if (filteredOffers.length >= MAX_COUNT) {
       return true;
     }
 
@@ -114,4 +115,4 @@ function addFilterListener(offers) {
 }
 
 
-export {addFilterListener};
+export {addFilterListener, MAX_COUNT};
