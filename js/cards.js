@@ -1,3 +1,5 @@
+'use strict';
+
 // словарь типов жилья
 const typeOptions = {
   flat: 'Квартира',
@@ -63,7 +65,7 @@ function getCard(data) {
 
   let time = '';
   if (data.offer.checkin && data.offer.checkout) {
-    time = 'Заезд после ' +  data.offer.checkin + ' выезд до ' + data.offer.checkout;
+    time = 'Заезд после ' + data.offer.checkin + ' выезд до ' + data.offer.checkout;
   }
   checkValue(cardTemplate.querySelector('.popup__text--time'), time);
 
@@ -75,4 +77,6 @@ function getCard(data) {
   return cardTemplate;
 }
 
-export {getCard};
+export {
+  getCard
+};

@@ -1,3 +1,5 @@
+'use strict';
+
 function getData(url, onSuccess, error) {
   fetch(url)
     .then((response) => response.json())
@@ -22,4 +24,7 @@ function toSend(url, data, onSuccess, error) {
     .catch(error);
 }
 
-export {getData, toSend};
+export {
+  getData,
+  toSend
+};

@@ -1,3 +1,5 @@
+'use strict';
+
 import {
   mapCenterCoords,
   mainMarker,
@@ -117,4 +119,6 @@ roomNumber.addEventListener('change', validateGuests);
 capacity.addEventListener('change', validateGuests);
 
 
-export {toDefaultForm};
+export {
+  toDefaultForm
+};

@@ -1,6 +1,9 @@
 /* global L:readonly */
+'use strict';
 
-import {getCard} from './cards.js';
+import {
+  getCard
+} from './cards.js';
 
 const ZOOM = 9;
 const MAIN_MARKER_WIDTH = 50;
@@ -123,4 +126,10 @@ function reRenderMarkers(data) {
 }
 
 
-export {renderToMap, mainMarker, mapCenterCoords, addressCoords, reRenderMarkers};
+export {
+  renderToMap,
+  mainMarker,
+  mapCenterCoords,
+  addressCoords,
+  reRenderMarkers
+};

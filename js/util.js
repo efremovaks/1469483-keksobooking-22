@@ -1,3 +1,5 @@
+'use strict';
+
 const ALERT_SHOW_TIME = 5000;
 
 function random(min, max) {
@@ -26,7 +28,7 @@ function randomFloat(min = 0, max = 10) {
   return rand.toFixed(5);
 }
 
-function showAlert (message) {
+function showAlert(message) {
   const alertContainer = document.createElement('div');
   alertContainer.style.zIndex = 100;
   alertContainer.style.position = 'absolute';
@@ -47,4 +49,8 @@ function showAlert (message) {
   }, ALERT_SHOW_TIME);
 }
 
-export {random, randomFloat, showAlert};
+export {
+  random,
+  randomFloat,
+  showAlert
+};

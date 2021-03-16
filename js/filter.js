@@ -1,4 +1,8 @@
-import {reRenderMarkers} from './map.js';
+'use strict';
+
+import {
+  reRenderMarkers
+} from './map.js';
 
 const MAX_COUNT = 10;
 const DEBOUNCE_TIME = 500;
@@ -116,4 +120,7 @@ function addFilterListener(offers) {
 }
 
 
-export {addFilterListener, MAX_COUNT};
+export {
+  addFilterListener,
+  MAX_COUNT
+};

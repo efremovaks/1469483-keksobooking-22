@@ -1,3 +1,5 @@
+'use strict';
+
 // модалки на успешную \ не успешную отправку
 function renderModal(selector) {
   const modalTemplate = document.querySelector(`#${selector}`).content.querySelector(`.${selector}`);
@@ -16,4 +18,6 @@ function renderModal(selector) {
   });
 }
 
-export{renderModal};
+export {
+  renderModal
+};

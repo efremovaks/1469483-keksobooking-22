@@ -1,11 +1,34 @@
+'use strict';
+
 import './form.js';
 import './map.js';
-import {renderToMap} from './map.js';
-import {showAlert} from './util.js';
-import {addFilterListener, MAX_COUNT} from './filter.js';
-import {getData, toSend} from './server.js';
-import {toDefaultForm} from './form.js';
-import {renderModal} from './modal.js';
+
+import {
+  renderToMap
+} from './map.js';
+
+import {
+  showAlert
+} from './util.js';
+
+import {
+  addFilterListener,
+  MAX_COUNT
+} from './filter.js';
+
+import {
+  getData,
+  toSend
+} from './server.js';
+
+import {
+  toDefaultForm
+} from './form.js';
+
+import {
+  renderModal
+} from './modal.js';
+
 
 const form = document.querySelector('.ad-form');
 const btnFormReset = form.querySelector('.ad-form__reset');
