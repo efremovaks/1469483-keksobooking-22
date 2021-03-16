@@ -4,7 +4,7 @@ import {renderToMap} from './map.js';
 import {showAlert} from './util.js';
 import {addFilterListener, MAX_COUNT} from './filter.js';
 import {getData, toSend} from './server.js';
-import {renderModal, toDefaultForm} from './form.js';
+import {toDefaultForm} from './form.js';
 
 
 const form = document.querySelector('.ad-form');
@@ -49,3 +49,21 @@ btnFormReset.addEventListener('click', function (evt) {
   evt.preventDefault();
   toDefaultForm(offers);
 });
+
+// модалки на успешную \ не успешную отправку
+function renderModal(selector) {
+  const modalTemplate = document.querySelector(`#${selector}`).content.querySelector(`.${selector}`);
+  const mainHtml = document.querySelector('main');
+  const modalMessage = modalTemplate.cloneNode(true);
+  mainHtml.appendChild(modalMessage);
+
+  document.addEventListener('keydown', function (evt) {
+    if (evt.key === 'Escape') {
+      modalMessage.remove();
+    }
+  });
+
+  document.addEventListener('click', function () {
+    modalMessage.remove();
+  });
+}

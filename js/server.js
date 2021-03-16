@@ -5,7 +5,6 @@ function getData(url, onSuccess, error) {
     .catch(error);
 }
 
-
 function toSend(url, data, onSuccess, error) {
   fetch(
     url, {
@@ -22,6 +21,5 @@ function toSend(url, data, onSuccess, error) {
     })
     .catch(error);
 }
-
 
 export {getData, toSend};

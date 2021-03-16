@@ -6,7 +6,7 @@ import {
 } from './map.js';
 
 
-const typeMinPrice = {
+const TypeMinPrices = {
   bungalow: 0,
   flat: 1000,
   house: 5000,
@@ -38,23 +38,6 @@ function toDefaultForm(offers) {
   capacityRoom();
 }
 
-// модалки на успешную \ не успешную отправку
-function renderModal(selector) {
-  const modalTemplate = document.querySelector(`#${selector}`).content.querySelector(`.${selector}`);
-  const mainHtml = document.querySelector('main');
-  const modalMessage = modalTemplate.cloneNode(true);
-  mainHtml.appendChild(modalMessage);
-
-  document.addEventListener('keydown', function (evt) {
-    if (evt.key === 'Escape') {
-      modalMessage.remove();
-    }
-  });
-
-  document.addEventListener('click', function () {
-    modalMessage.remove();
-  });
-}
 
 // валидация полей формы
 title.addEventListener('invalid', function () {
@@ -84,8 +67,7 @@ price.addEventListener('input', function () {
 
 function setMinPrice() {
   //значения по умолчанию
-  priceFormInput.placeholder = typeMinPrice[typeForm.value]; // проставляет значение в поле Цена за ночь в зависимости от типа жилья
-  // priceFormInput.min = typeMinPrice[typeForm.value]; // ограничивает минимальное значение priceFormInput в соответствии с typeMinPrice
+  priceFormInput.placeholder = TypeMinPrices[typeForm.value]; // проставляет значение в поле Цена за ночь в зависимости от типа жилья
 }
 
 setMinPrice();
@@ -95,17 +77,19 @@ typeForm.addEventListener('change', function () {
 });
 
 // синхронизируем время въезда/выезда
-timein.value = timeout.value;
+function syncTime() {
+  timein.value = timeout.value;
+}
+
+syncTime()
 
 timein.addEventListener('change', function () {
-  timeout.value = timein.value;
+  syncTime();
 });
 
 timeout.addEventListener('change', function () {
-  timein.value = timeout.value;
+  syncTime();
 });
-
-
 
 // синхронизирует комнаты и гостей
 function capacityRoom() {
@@ -133,8 +117,4 @@ roomNumber.addEventListener('change', validateGuests);
 capacity.addEventListener('change', validateGuests);
 
 
-
-export {
-  toDefaultForm,
-  renderModal
-};
+export {toDefaultForm};
