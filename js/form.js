@@ -1,4 +1,9 @@
-import {mapCenterCoords, mainMarker, addressCoords, renderToMap} from './map.js';
+import {
+  mapCenterCoords,
+  mainMarker,
+  addressCoords,
+  renderToMap
+} from './map.js';
 
 
 const typeMinPrice = {
@@ -100,29 +105,36 @@ timeout.addEventListener('change', function () {
   timein.value = timeout.value;
 });
 
+
+
 // синхронизирует комнаты и гостей
 function capacityRoom() {
   roomNumber.value = capacity.value;
-
-  roomNumber.addEventListener('change', function () {
-
-    if (+roomNumber.value === 100) {
-      capacity.value = 0;
-    } else if (roomNumber.value >= capacity.value) {
-      capacity.value <= roomNumber.value;
-    }
-  });
-
-  capacity.addEventListener('change', function () {
-
-    if (+capacity.value === 0) {
-      roomNumber.value = 100;
-    } else if (capacity.value >= roomNumber.value) {
-      roomNumber.value <= capacity.value;
-    }
-  });
 }
 
 capacityRoom();
 
-export {toDefaultForm, renderModal};
+function validateGuests() {
+  const roomNumberValue = +roomNumber.value;
+  const capacityValue = +capacity.value;
+
+  if (roomNumberValue < capacityValue && capacityValue > roomNumberValue) {
+    capacity.setCustomValidity('Гостей больше, чем комнат');
+  } else if (capacityValue === 0 && roomNumberValue !== 100) {
+    capacity.setCustomValidity('Нужно 100 комнат');
+  } else if (roomNumberValue === 100 && capacityValue !== 0) {
+    capacity.setCustomValidity('для кутежа, не для гостей');
+  } else {
+    capacity.setCustomValidity('');
+  }
+}
+
+roomNumber.addEventListener('change', validateGuests);
+capacity.addEventListener('change', validateGuests);
+
+
+
+export {
+  toDefaultForm,
+  renderModal
+};
