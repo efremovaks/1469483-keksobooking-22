@@ -50,9 +50,9 @@ disableFilter();
 disableForm();
 
 
+// разблокировка / загрузка
 map
   .on('load', function () {
-    loadLayer
     enableFilter();
     enableForm();
     getData(

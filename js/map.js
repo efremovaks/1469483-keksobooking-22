@@ -25,13 +25,11 @@ const mapCanvas = document.querySelector('#map-canvas');
 const map = L.map(mapCanvas);
 
 // карта - изображение
-const loadLayer = L.tileLayer(
+L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   },
-)
-
-loadLayer.addTo(map);
+).addTo(map);
 
 // кастомный маркер
 const mainMarkerIco = L.icon({
@@ -117,7 +115,6 @@ function reRenderMarkers(data) {
 
 export {
   map,
-  loadLayer,
   ZOOM,
   mapCenterCoords,
   renderToMap,
