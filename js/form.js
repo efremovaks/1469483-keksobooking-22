@@ -1,18 +1,29 @@
-import {toSend} from './server.js';
-import {mapCenterCoords} from './map.js';
-import {mainMarker} from './map.js';
-import {addressCoords} from './map.js';
+'use strict';
 
-const typeMinPrice = {
+import {
+  mapCenterCoords,
+  mainMarker,
+  addressCoords,
+  renderToMap
+} from './map.js';
+
+import {
+  disableElements,
+  enableElements
+} from './util.js';
+
+const MAX_PRICE_VALUE = 1000000;
+
+const TypeMinPrices = {
   bungalow: 0,
   flat: 1000,
   house: 5000,
   palace: 10000,
 };
 
-const MAX_PRICE_VALUE = 1000000;
-
 const form = document.querySelector('.ad-form');
+const formFieldsets = form.querySelectorAll('fieldset');
+const mapForm = document.querySelector('.map__filters');
 const priceFormInput = form.querySelector('#price');
 const typeForm = form.querySelector('#type');
 const timein = form.querySelector('#timein');
@@ -21,50 +32,32 @@ const title = form.querySelector('#title');
 const price = form.querySelector('#price');
 const roomNumber = form.querySelector('#room_number');
 const capacity = form.querySelector('#capacity');
-const btnFormReset = form.querySelector('.ad-form__reset');
+
+// блокировка
+function disableForm() {
+  form.classList.add('ad-form--disabled');
+  disableElements(formFieldsets);
+}
+
+// разблокировка
+function enableForm() {
+  form.classList.remove('ad-form--disabled');
+  enableElements(formFieldsets);
+}
+
+// enableForm();
+
 
 // очищает форму
-function toDefaultForm() {
+function toDefaultForm(offers) {
+  mapForm.reset();
   form.reset();
+  renderToMap(offers);
   mainMarker.setLatLng(mapCenterCoords);
   addressCoords();
   setMinPrice();
   capacityRoom();
 }
-
-// модалки на успешную \ не успешную отправку
-function renderModal(selector) {
-  const modalTemplate = document.querySelector(`#${selector}`).content.querySelector(`.${selector}`);
-  const mainHtml = document.querySelector('main');
-  const modalMessage = modalTemplate.cloneNode(true);
-  mainHtml.appendChild(modalMessage);
-
-  document.addEventListener('keydown', function (evt) {
-    if (evt.key === 'Escape') {
-      modalMessage.remove();
-    }
-  });
-
-  document.addEventListener('click', function () {
-    modalMessage.remove();
-  });
-}
-
-
-// сброс формы по кнопке сброса
-btnFormReset.addEventListener('click', function (evt) {
-  evt.preventDefault();
-  toDefaultForm();
-});
-
-// отпарвка данных на сервер
-form.addEventListener('submit', function (evt) {
-  evt.preventDefault();
-
-  const formData = new FormData(evt.target);
-  toSend(formData);
-});
-
 
 
 // валидация полей формы
@@ -79,7 +72,6 @@ title.addEventListener('invalid', function () {
     title.setCustomValidity('');
   }
 });
-
 
 price.addEventListener('input', function () {
   const priceValue = price.value.length;
@@ -96,8 +88,7 @@ price.addEventListener('input', function () {
 
 function setMinPrice() {
   //значения по умолчанию
-  priceFormInput.placeholder = typeMinPrice[typeForm.value]; // проставляет значение в поле Цена за ночь в зависимости от типа жилья
-  // priceFormInput.min = typeMinPrice[typeForm.value]; // ограничивает минимальное значение priceFormInput в соответствии с typeMinPrice
+  priceFormInput.placeholder = TypeMinPrices[typeForm.value]; // проставляет значение в поле Цена за ночь в зависимости от типа жилья
 }
 
 setMinPrice();
@@ -106,39 +97,49 @@ typeForm.addEventListener('change', function () {
   setMinPrice();
 });
 
-
 // синхронизируем время въезда/выезда
-timein.value = timeout.value;
+function syncTime() {
+  timein.value = timeout.value;
+}
+
+syncTime()
 
 timein.addEventListener('change', function () {
-  timeout.value = timein.value;
+  syncTime();
 });
 
 timeout.addEventListener('change', function () {
-  timein.value = timeout.value;
+  syncTime();
 });
 
 // синхронизирует комнаты и гостей
 function capacityRoom() {
   roomNumber.value = capacity.value;
-
-  roomNumber.addEventListener('change', function () {
-    if (+roomNumber.value !== 100) {
-      capacity.value = roomNumber.value;
-    } else {
-      capacity.value = 0;
-    }
-  });
-
-  capacity.addEventListener('change', function () {
-    if (+capacity.value !== 0) {
-      roomNumber.value = capacity.value;
-    } else {
-      roomNumber.value = 100;
-    }
-  });
 }
 
 capacityRoom();
 
-export {toDefaultForm, renderModal};
+function validateGuests() {
+  const roomNumberValue = +roomNumber.value;
+  const capacityValue = +capacity.value;
+
+  if (roomNumberValue < capacityValue && capacityValue > roomNumberValue) {
+    capacity.setCustomValidity('Гостей больше, чем комнат');
+  } else if (capacityValue === 0 && roomNumberValue !== 100) {
+    capacity.setCustomValidity('Нужно 100 комнат');
+  } else if (roomNumberValue === 100 && capacityValue !== 0) {
+    capacity.setCustomValidity('для кутежа, не для гостей');
+  } else {
+    capacity.setCustomValidity('');
+  }
+}
+
+roomNumber.addEventListener('change', validateGuests);
+capacity.addEventListener('change', validateGuests);
+
+
+export {
+  disableForm,
+  enableForm,
+  toDefaultForm
+};

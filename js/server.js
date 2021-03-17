@@ -1,8 +1,4 @@
-import {
-  renderModal,
-  toDefaultForm
-} from './form.js';
-
+'use strict';
 
 function getData(url, onSuccess, error) {
   fetch(url)
@@ -11,25 +7,21 @@ function getData(url, onSuccess, error) {
     .catch(error);
 }
 
-
-function toSend(data) {
+function toSend(url, data, onSuccess, error) {
   fetch(
-    'https://22.javascript.pages.academy/keksobooking', {
+    url, {
       method: 'POST',
       body: data,
     },
   )
     .then((response) => {
       if (response.ok) {
-        renderModal('success');
-        toDefaultForm();
+        onSuccess(response);
       } else {
-        renderModal('error');
+        error();
       }
     })
-    .catch(() => {
-      renderModal('error');
-    });
+    .catch(error);
 }
 
 export {

@@ -1,5 +1,10 @@
+'use strict';
+
+const PHOTO_WIGTH = 45;
+const PHOTO_HEIGHT = 40;
+
 // словарь типов жилья
-const typeOptions = {
+const TypeOptions = {
   flat: 'Квартира',
   bungalow: 'Бунгало',
   house: 'Дом',
@@ -29,8 +34,8 @@ function getPhotos(container, photosList) {
     img.classList.add('popup__photo');
     img.src = element;
     img.alt = 'Фотография жилья';
-    img.width = 45;
-    img.height = 40;
+    img.width = PHOTO_WIGTH;
+    img.height = PHOTO_HEIGHT;
     container.appendChild(img);
   });
 }
@@ -50,7 +55,7 @@ function getCard(data) {
   checkValue(cardTemplate.querySelector('.popup__title'), data.offer.title);
   checkValue(cardTemplate.querySelector('.popup__text--address'), data.offer.address);
   checkValue(cardTemplate.querySelector('.popup__text--price'), data.offer.price + '₽/ночь');
-  checkValue(cardTemplate.querySelector('.popup__type'), typeOptions[data.offer.type]);
+  checkValue(cardTemplate.querySelector('.popup__type'), TypeOptions[data.offer.type]);
 
   let capacity = '';
   if (data.offer.rooms && data.offer.guests) {
@@ -60,7 +65,7 @@ function getCard(data) {
 
   let time = '';
   if (data.offer.checkin && data.offer.checkout) {
-    time = 'Заезд после ' +  data.offer.checkin + ' выезд до ' + data.offer.checkout;
+    time = 'Заезд после ' + data.offer.checkin + ' выезд до ' + data.offer.checkout;
   }
   checkValue(cardTemplate.querySelector('.popup__text--time'), time);
 
@@ -72,4 +77,6 @@ function getCard(data) {
   return cardTemplate;
 }
 
-export {getCard};
+export {
+  getCard
+};

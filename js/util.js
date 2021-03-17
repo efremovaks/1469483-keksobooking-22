@@ -1,3 +1,5 @@
+'use strict';
+
 const ALERT_SHOW_TIME = 5000;
 
 function random(min, max) {
@@ -26,7 +28,7 @@ function randomFloat(min = 0, max = 10) {
   return rand.toFixed(5);
 }
 
-const showAlert = (message) => {
+function showAlert(message) {
   const alertContainer = document.createElement('div');
   alertContainer.style.zIndex = 100;
   alertContainer.style.position = 'absolute';
@@ -47,4 +49,25 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 }
 
-export {random, randomFloat, showAlert};
+
+//блокировка
+function disableElements(selects) {
+  selects.forEach((element) => {
+    element.disabled = true;
+  });
+}
+
+// разблокировка
+function enableElements(selects) {
+  selects.forEach((element) => {
+    element.disabled = false;
+  });
+}
+
+export {
+  random,
+  randomFloat,
+  showAlert,
+  disableElements,
+  enableElements
+};

@@ -1,34 +1,28 @@
 /* global L:readonly */
+'use strict';
 
-import {getCard} from './cards.js';
+import {
+  getCard
+} from './cards.js';
+
+
+const ZOOM = 9;
+const MAIN_MARKER_WIDTH = 50;
+const MAIN_MARKER_HEIGHT = 50;
+const OFFER_MARKER_WIDTH = 40;
+const OFFER_MARKER_HEIGHT = 40;
 
 const mapCenterCoords = {
   lat: 35.80222,
   lng: 139.78935,
-}
+};
 
-const form = document.querySelector('.ad-form');
-const mapFilters = document.querySelector('.map__filters');
-const mapCanvas = document.querySelector('#map-canvas');
+
 const addressInput = document.querySelector('#address');
+const mapCanvas = document.querySelector('#map-canvas');
 
 
-
-const map = L.map(mapCanvas)
-  // блокировка карты до загрузки
-  .on('unload', function () {
-    form.classList.add('ad-form--disabled');
-    form.disabled = true;
-    mapFilters.classList.add('map__filters--disabled');
-    mapFilters.disabled = true;
-
-  })
-
-  // координаты центровки карты и зум
-  .setView({
-    lat: mapCenterCoords.lat,
-    lng: mapCenterCoords.lng,
-  }, 9);
+const map = L.map(mapCanvas);
 
 // карта - изображение
 L.tileLayer(
@@ -40,8 +34,8 @@ L.tileLayer(
 // кастомный маркер
 const mainMarkerIco = L.icon({
   iconUrl: './img/main-pin.svg',
-  iconSize: [50, 50],
-  iconAnchor: [25, 50],
+  iconSize: [MAIN_MARKER_WIDTH, MAIN_MARKER_HEIGHT],
+  iconAnchor: [MAIN_MARKER_WIDTH / 2, MAIN_MARKER_HEIGHT],
 });
 
 // добавляеет маркер по координатам
@@ -76,8 +70,8 @@ addressCoords();
 // метки объектов объявлений
 const iconLable = L.icon({
   iconUrl: './img/pin.svg',
-  iconSize: [40, 40],
-  iconAnchor: [20, 40],
+  iconSize: [OFFER_MARKER_WIDTH, OFFER_MARKER_HEIGHT],
+  iconAnchor: [OFFER_MARKER_WIDTH / 2, OFFER_MARKER_HEIGHT],
 });
 
 
@@ -88,7 +82,10 @@ function removeMarkers() {
 }
 
 // размещает маркеры предложений на карту
-function renderToMap(data) {
+function renderToMap(data = []) {
+  if (data.length < 1) {
+    return;
+  }
 
   data.forEach((item) => {
 
@@ -117,9 +114,11 @@ function reRenderMarkers(data) {
 
 
 export {
+  map,
+  ZOOM,
+  mapCenterCoords,
   renderToMap,
   mainMarker,
-  mapCenterCoords,
   addressCoords,
   reRenderMarkers
-}
+};
