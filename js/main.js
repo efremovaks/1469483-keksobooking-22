@@ -1,9 +1,13 @@
+/* global L:readonly */
 'use strict';
 
 import './form.js';
 import './map.js';
 
 import {
+  map,
+  ZOOM,
+  mapCenterCoords,
   disableFilter,
   enableFilter,
   renderToMap
@@ -39,39 +43,37 @@ const POST_URL = 'https://22.javascript.pages.academy/keksobooking';
 const form = document.querySelector('.ad-form');
 const btnFormReset = form.querySelector('.ad-form__reset');
 
+let offers = [];
 
-const map = L.map(mapCanvas)
-  .on('load', function () {
-
-  })
-
-  // координаты центровки карты и зум
-  .setView({
-    lat: mapCenterCoords.lat,
-    lng: mapCenterCoords.lng,
-  }, ZOOM);
-
-
+// блокировка
 document.addEventListener('DOMContentLoaded', function() {
   disableFilter();
   disableForm();
 });
 
-let offers = [];
+map
+  .on('load', function () {
+    enableFilter();
+    enableForm();
+    getData(
+      GET_URL,
+      ((data) => {
+        offers = data.slice(0, MAX_COUNT);
+        renderToMap(offers);
+        addFilterListener(offers);
 
-getData(
-  GET_URL,
-  ((data) => {
-    offers = data.slice(0, MAX_COUNT);
-    renderToMap(offers);
-    addFilterListener(offers);
-
-    toDefaultForm(offers);
-  }),
-  (() => {
-    showAlert('При загрузке данных с сервера произошла ошибка. Попробуйте ещё раз');
-  }),
-);
+        toDefaultForm(offers);
+      }),
+      (() => {
+        showAlert('При загрузке данных с сервера произошла ошибка. Попробуйте ещё раз');
+      }),
+    );
+  })
+  // координаты центровки карты и зум
+  .setView({
+    lat: mapCenterCoords.lat,
+    lng: mapCenterCoords.lng,
+  }, ZOOM);
 
 // отправка данных на сервер
 form.addEventListener('submit', function (evt) {

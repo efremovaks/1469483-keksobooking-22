@@ -23,8 +23,8 @@ const mapCenterCoords = {
 
 const mapFilters = document.querySelector('.map__filters');
 const mapFiltersElements = mapFilters.querySelectorAll('select, input');
-const mapCanvas = document.querySelector('#map-canvas');
 const addressInput = document.querySelector('#address');
+const mapCanvas = document.querySelector('#map-canvas');
 
 
 function disableFilter() {
@@ -38,7 +38,7 @@ function enableFilter() {
   enableElements(mapFiltersElements);
 }
 
-const map = L.map('map-canvas');
+const map = L.map(mapCanvas);
 
 // карта - изображение
 L.tileLayer(
@@ -130,11 +130,13 @@ function reRenderMarkers(data) {
 
 
 export {
+  map,
+  ZOOM,
+  mapCenterCoords,
   disableFilter,
   enableFilter,
   renderToMap,
   mainMarker,
-  mapCenterCoords,
   addressCoords,
   reRenderMarkers
 };
