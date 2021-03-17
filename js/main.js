@@ -5,7 +5,6 @@ import './map.js';
 
 import {
   map,
-  loadLayer,
   ZOOM,
   mapCenterCoords,
   renderToMap
