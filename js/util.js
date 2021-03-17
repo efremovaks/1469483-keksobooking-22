@@ -39,8 +39,6 @@ function enableElements(selects) {
 }
 
 export {
-  random,
-  randomFloat,
   showAlert,
   disableElements,
   enableElements
