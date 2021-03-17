@@ -5,6 +5,11 @@ import {
   getCard
 } from './cards.js';
 
+import {
+  disableElements,
+  enableElements
+} from './util.js';
+
 const ZOOM = 9;
 const MAIN_MARKER_WIDTH = 50;
 const MAIN_MARKER_HEIGHT = 50;
@@ -16,26 +21,24 @@ const mapCenterCoords = {
   lng: 139.78935,
 };
 
-const form = document.querySelector('.ad-form');
 const mapFilters = document.querySelector('.map__filters');
+const mapFiltersElements = mapFilters.querySelectorAll('select, input');
 const mapCanvas = document.querySelector('#map-canvas');
 const addressInput = document.querySelector('#address');
 
 
-const map = L.map(mapCanvas)
-  // блокировка карты до загрузки
-  .on('unload', function () {
-    form.classList.add('ad-form--disabled');
-    form.disabled = true;
-    mapFilters.classList.add('map__filters--disabled');
-    mapFilters.disabled = true;
-  })
+function disableFilter() {
+  mapFilters.classList.add('map__filters--disabled');
+  disableElements(mapFiltersElements);
+}
 
-  // координаты центровки карты и зум
-  .setView({
-    lat: mapCenterCoords.lat,
-    lng: mapCenterCoords.lng,
-  }, ZOOM);
+
+function enableFilter() {
+  mapFilters.classList.remove('map__filters--disabled');
+  enableElements(mapFiltersElements);
+}
+
+const map = L.map('map-canvas');
 
 // карта - изображение
 L.tileLayer(
@@ -127,6 +130,8 @@ function reRenderMarkers(data) {
 
 
 export {
+  disableFilter,
+  enableFilter,
   renderToMap,
   mainMarker,
   mapCenterCoords,

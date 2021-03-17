@@ -4,6 +4,8 @@ import './form.js';
 import './map.js';
 
 import {
+  disableFilter,
+  enableFilter,
   renderToMap
 } from './map.js';
 
@@ -22,6 +24,8 @@ import {
 } from './server.js';
 
 import {
+  disableForm,
+  enableForm,
   toDefaultForm
 } from './form.js';
 
@@ -29,12 +33,29 @@ import {
   renderModal
 } from './modal.js';
 
-
-const form = document.querySelector('.ad-form');
-const btnFormReset = form.querySelector('.ad-form__reset');
 const GET_URL = 'https://22.javascript.pages.academy/keksobooking/data';
 const POST_URL = 'https://22.javascript.pages.academy/keksobooking';
 
+const form = document.querySelector('.ad-form');
+const btnFormReset = form.querySelector('.ad-form__reset');
+
+
+const map = L.map(mapCanvas)
+  .on('load', function () {
+
+  })
+
+  // координаты центровки карты и зум
+  .setView({
+    lat: mapCenterCoords.lat,
+    lng: mapCenterCoords.lng,
+  }, ZOOM);
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  disableFilter();
+  disableForm();
+});
 
 let offers = [];
 

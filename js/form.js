@@ -7,6 +7,12 @@ import {
   renderToMap
 } from './map.js';
 
+import {
+  disableElements,
+  enableElements
+} from './util.js';
+
+const MAX_PRICE_VALUE = 1000000;
 
 const TypeMinPrices = {
   bungalow: 0,
@@ -15,9 +21,8 @@ const TypeMinPrices = {
   palace: 10000,
 };
 
-const MAX_PRICE_VALUE = 1000000;
-
 const form = document.querySelector('.ad-form');
+const formFieldsets = form.querySelectorAll('fieldset');
 const mapForm = document.querySelector('.map__filters');
 const priceFormInput = form.querySelector('#price');
 const typeForm = form.querySelector('#type');
@@ -27,6 +32,20 @@ const title = form.querySelector('#title');
 const price = form.querySelector('#price');
 const roomNumber = form.querySelector('#room_number');
 const capacity = form.querySelector('#capacity');
+
+// блокировка
+function disableForm() {
+  form.classList.add('ad-form--disabled');
+  disableElements(formFieldsets);
+}
+
+// разблокировка
+function enableForm() {
+  form.classList.remove('ad-form--disabled');
+  enableElements(formFieldsets);
+}
+
+// enableForm();
 
 
 // очищает форму
@@ -120,5 +139,7 @@ capacity.addEventListener('change', validateGuests);
 
 
 export {
+  disableForm,
+  enableForm,
   toDefaultForm
 };

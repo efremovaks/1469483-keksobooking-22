@@ -1,15 +1,15 @@
 'use strict';
 
+const PHOTO_WIGTH = 45;
+const PHOTO_HEIGHT = 40;
+
 // словарь типов жилья
-const typeOptions = {
+const TypeOptions = {
   flat: 'Квартира',
   bungalow: 'Бунгало',
   house: 'Дом',
   palace: 'Дворец',
 };
-
-const PHOTO_WIGTH = 45;
-const PHOTO_HEIGHT = 40;
 
 const template = document.querySelector('#card').content.querySelector('.popup');
 
@@ -55,7 +55,7 @@ function getCard(data) {
   checkValue(cardTemplate.querySelector('.popup__title'), data.offer.title);
   checkValue(cardTemplate.querySelector('.popup__text--address'), data.offer.address);
   checkValue(cardTemplate.querySelector('.popup__text--price'), data.offer.price + '₽/ночь');
-  checkValue(cardTemplate.querySelector('.popup__type'), typeOptions[data.offer.type]);
+  checkValue(cardTemplate.querySelector('.popup__type'), TypeOptions[data.offer.type]);
 
   let capacity = '';
   if (data.offer.rooms && data.offer.guests) {

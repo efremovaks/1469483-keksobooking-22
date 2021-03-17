@@ -49,8 +49,25 @@ function showAlert(message) {
   }, ALERT_SHOW_TIME);
 }
 
+
+//блокировка
+function disableElements(selects) {
+  selects.forEach((element) => {
+    element.disabled = true;
+  });
+}
+
+// разблокировка
+function enableElements(selects) {
+  selects.forEach((element) => {
+    element.disabled = false;
+  });
+}
+
 export {
   random,
   randomFloat,
-  showAlert
+  showAlert,
+  disableElements,
+  enableElements
 };
