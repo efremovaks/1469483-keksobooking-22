@@ -5,10 +5,6 @@ import {
   getCard
 } from './cards.js';
 
-import {
-  disableElements,
-  enableElements
-} from './util.js';
 
 const ZOOM = 9;
 const MAIN_MARKER_WIDTH = 50;
@@ -21,31 +17,21 @@ const mapCenterCoords = {
   lng: 139.78935,
 };
 
-const mapFilters = document.querySelector('.map__filters');
-const mapFiltersElements = mapFilters.querySelectorAll('select, input');
+
 const addressInput = document.querySelector('#address');
 const mapCanvas = document.querySelector('#map-canvas');
 
 
-function disableFilter() {
-  mapFilters.classList.add('map__filters--disabled');
-  disableElements(mapFiltersElements);
-}
-
-
-function enableFilter() {
-  mapFilters.classList.remove('map__filters--disabled');
-  enableElements(mapFiltersElements);
-}
-
 const map = L.map(mapCanvas);
 
 // карта - изображение
-L.tileLayer(
+const loadLayer = L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   },
-).addTo(map);
+)
+
+loadLayer.addTo(map);
 
 // кастомный маркер
 const mainMarkerIco = L.icon({
@@ -131,10 +117,9 @@ function reRenderMarkers(data) {
 
 export {
   map,
+  loadLayer,
   ZOOM,
   mapCenterCoords,
-  disableFilter,
-  enableFilter,
   renderToMap,
   mainMarker,
   addressCoords,

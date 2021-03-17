@@ -1,4 +1,3 @@
-/* global L:readonly */
 'use strict';
 
 import './form.js';
@@ -6,10 +5,9 @@ import './map.js';
 
 import {
   map,
+  loadLayer,
   ZOOM,
   mapCenterCoords,
-  disableFilter,
-  enableFilter,
   renderToMap
 } from './map.js';
 
@@ -18,6 +16,8 @@ import {
 } from './util.js';
 
 import {
+  disableFilter,
+  enableFilter,
   addFilterListener,
   MAX_COUNT
 } from './filter.js';
@@ -46,13 +46,13 @@ const btnFormReset = form.querySelector('.ad-form__reset');
 let offers = [];
 
 // блокировка
-document.addEventListener('DOMContentLoaded', function() {
-  disableFilter();
-  disableForm();
-});
+disableFilter();
+disableForm();
+
 
 map
   .on('load', function () {
+    loadLayer
     enableFilter();
     enableForm();
     getData(
@@ -60,7 +60,7 @@ map
       ((data) => {
         offers = data.slice(0, MAX_COUNT);
         renderToMap(offers);
-        addFilterListener(offers);
+        addFilterListener(data);
 
         toDefaultForm(offers);
       }),
@@ -69,6 +69,7 @@ map
       }),
     );
   })
+
   // координаты центровки карты и зум
   .setView({
     lat: mapCenterCoords.lat,

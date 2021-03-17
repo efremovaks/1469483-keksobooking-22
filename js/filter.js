@@ -4,6 +4,11 @@ import {
   reRenderMarkers
 } from './map.js';
 
+import {
+  disableElements,
+  enableElements
+} from './util.js';
+
 const MAX_COUNT = 10;
 const DEBOUNCE_TIME = 500;
 
@@ -23,6 +28,7 @@ const PriceRange = {
 
 const mapForm = document.querySelector('.map__filters');
 const selects = mapForm.querySelectorAll('select');
+const inputs = mapForm.querySelectorAll('input');
 
 function debounce(fn, ms) {
   let timeout;
@@ -35,6 +41,18 @@ function debounce(fn, ms) {
   };
 }
 
+function disableFilter() {
+  mapForm.classList.add('map__filters--disabled');
+  disableElements(selects);
+  disableElements(inputs);
+}
+
+
+function enableFilter() {
+  mapForm.classList.remove('map__filters--disabled');
+  enableElements(selects);
+  enableElements(inputs);
+}
 
 function checkPrice(value, range) {
 
@@ -121,6 +139,8 @@ function addFilterListener(offers) {
 
 
 export {
+  disableFilter,
+  enableFilter,
   addFilterListener,
   MAX_COUNT
 };
