@@ -1,6 +1,6 @@
 'use strict';
 
-const PHOTO_WIGTH = 45;
+const PHOTO_WIDTH = 45;
 const PHOTO_HEIGHT = 40;
 
 // словарь типов жилья
@@ -34,7 +34,7 @@ function getPhotos(container, photosList) {
     img.classList.add('popup__photo');
     img.src = element;
     img.alt = 'Фотография жилья';
-    img.width = PHOTO_WIGTH;
+    img.width = PHOTO_WIDTH;
     img.height = PHOTO_HEIGHT;
     container.appendChild(img);
   });
