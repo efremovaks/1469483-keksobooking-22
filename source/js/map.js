@@ -1,5 +1,6 @@
 /* global L:readonly */
 'use strict';
+import L from 'leaflet';
 
 import {
   getCard
