@@ -23,6 +23,7 @@ function showAlert(message) {
   }, ALERT_SHOW_TIME);
 }
 
+// setDisableState(elements, value = true)
 
 //блокировка
 function disableElements(selects) {

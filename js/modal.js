@@ -5,14 +5,13 @@ function onPopupEscKeydown(modal, evt) {
   if (evt.key === 'Escape' || evt.key === 'Esc') {
     evt.preventDefault();
     modal.remove();
-    document.addEventListener('keydown', onPopupEscKeydown);
+    document.removeEventListener('keydown', onPopupEscKeydown);
   }
 }
 
-function onPopupClick(modal, evt) {
-  evt.preventDefault();
+function onPopupClick(modal) {
   modal.remove();
-  document.addEventListener('click', onPopupClick);
+  document.removeEventListener('click', onPopupClick);
 }
 
 // модалки на успешную \ не успешную отправку
@@ -23,10 +22,8 @@ function renderModal(selector) {
   mainHtml.appendChild(modalMessage);
 
   document.addEventListener('keydown', onPopupEscKeydown.bind(null, modalMessage));
-  // document.removeEventListener('keydown', onPopupEscKeydown.bind(null, modalMessage));
 
   document.addEventListener('click', onPopupClick.bind(null, modalMessage));
-  // document.removeEventListener('click', onPopupClick.bind(null, modalMessage));
 }
 
 export {
