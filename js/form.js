@@ -8,8 +8,7 @@ import {
 } from './map.js';
 
 import {
-  disableElements,
-  enableElements
+  setDisableStateElements
 } from './util.js';
 
 const MAX_PRICE_VALUE = 1000000;
@@ -36,16 +35,14 @@ const capacity = form.querySelector('#capacity');
 // блокировка
 function disableForm() {
   form.classList.add('ad-form--disabled');
-  disableElements(formFieldsets);
+  setDisableStateElements(formFieldsets);
 }
 
 // разблокировка
 function enableForm() {
   form.classList.remove('ad-form--disabled');
-  enableElements(formFieldsets);
+  setDisableStateElements(formFieldsets, false);
 }
-
-// enableForm();
 
 
 // очищает форму

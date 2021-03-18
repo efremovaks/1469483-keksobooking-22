@@ -5,8 +5,7 @@ import {
 } from './map.js';
 
 import {
-  disableElements,
-  enableElements
+  setDisableStateElements
 } from './util.js';
 
 const MAX_COUNT = 10;
@@ -43,15 +42,15 @@ function debounce(fn, ms) {
 
 function disableFilter() {
   mapForm.classList.add('map__filters--disabled');
-  disableElements(selects);
-  disableElements(inputs);
+  setDisableStateElements(selects);
+  setDisableStateElements(inputs);
 }
 
 
 function enableFilter() {
   mapForm.classList.remove('map__filters--disabled');
-  enableElements(selects);
-  enableElements(inputs);
+  setDisableStateElements(selects, false);
+  setDisableStateElements(inputs, false);
 }
 
 function checkPrice(value, range) {

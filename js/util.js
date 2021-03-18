@@ -23,24 +23,16 @@ function showAlert(message) {
   }, ALERT_SHOW_TIME);
 }
 
-// setDisableState(elements, value = true)
 
-//блокировка
-function disableElements(selects) {
+// блокировка / разблокировка
+function setDisableStateElements(selects, value = true) {
   selects.forEach((element) => {
-    element.disabled = true;
+    element.disabled = value;
   });
 }
 
-// разблокировка
-function enableElements(selects) {
-  selects.forEach((element) => {
-    element.disabled = false;
-  });
-}
 
 export {
   showAlert,
-  disableElements,
-  enableElements
+  setDisableStateElements
 };
