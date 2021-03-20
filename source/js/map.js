@@ -22,7 +22,6 @@ const mapCenterCoords = {
 const addressInput = document.querySelector('#address');
 const mapCanvas = document.querySelector('#map-canvas');
 
-
 const map = L.map(mapCanvas);
 
 // карта - изображение
